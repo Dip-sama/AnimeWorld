@@ -359,6 +359,7 @@
             border-radius: 15px;
             max-width: 80%;
             word-wrap: break-word;
+            position: relative;
         }
 
         .message.user {
@@ -372,10 +373,21 @@
             margin-right: auto;
         }
 
+        .message.ai {
+            background: var(--accent-color);
+            margin-right: auto;
+            color: #000;
+        }
+
         .message-time {
             font-size: 0.7rem;
             opacity: 0.7;
             margin-top: 0.25rem;
+        }
+
+        .message-sender {
+            font-weight: bold;
+            margin-bottom: 0.25rem;
         }
 
         .chat-input-container {
@@ -673,6 +685,12 @@
                 color: var(--text-primary);
                 font-size: 1.5rem;
                 cursor: pointer;
+                order: -1;
+                margin-right: auto;
+            }
+
+            .user-actions {
+                margin-left: auto;
             }
 
             .container {
@@ -758,11 +776,7 @@
             border-radius: 15px;
             padding: 2rem;
             text-align: center;
-            display: none;
-        }
-
-        .video-call.active {
-            display: block;
+            margin-top: 2rem;
         }
 
         .video-screen {
@@ -776,6 +790,13 @@
             font-size: 4rem;
             margin-bottom: 2rem;
             position: relative;
+            overflow: hidden;
+        }
+
+        .video-screen video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .call-character {
@@ -786,6 +807,7 @@
             padding: 0.5rem 1rem;
             border-radius: 25px;
             font-weight: bold;
+            z-index: 2;
         }
 
         .call-controls {
@@ -833,6 +855,7 @@
             text-align: center;
             transition: var(--transition);
             border: 2px solid transparent;
+            cursor: pointer;
         }
 
         .coin-pack:hover {
@@ -840,9 +863,9 @@
             transform: translateY(-5px);
         }
 
-        .coin-pack h3 {
-            margin-bottom: 1rem;
-            color: var(--accent-color);
+        .coin-pack.active {
+            border-color: var(--primary-color);
+            background: rgba(255, 107, 157, 0.1);
         }
 
         .coin-amount {
@@ -1006,19 +1029,53 @@
             visibility: visible;
             opacity: 1;
         }
+
+        /* Video call user */
+        .user-video {
+            position: absolute;
+            bottom: 1rem;
+            right: 1rem;
+            width: 120px;
+            height: 90px;
+            background: var(--bg-card);
+            border-radius: 10px;
+            overflow: hidden;
+            z-index: 2;
+            border: 2px solid var(--primary-color);
+        }
+
+        .user-video video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Character response */
+        .character-response {
+            position: absolute;
+            bottom: 1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.7);
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            max-width: 80%;
+            text-align: center;
+            z-index: 2;
+        }
     </style>
 </head>
 <body>
     <!-- Header -->
     <header class="header">
         <nav class="nav-container">
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
             <div class="logo">
                 <i class="fas fa-dragon"></i>
                 <span>AnimeWorld</span>
             </div>
-            <button class="menu-toggle" id="menuToggle">
-                <i class="fas fa-bars"></i>
-            </button>
             <ul class="nav-menu" id="navMenu">
                 <li class="nav-item" data-section="home">
                     <i class="fas fa-home"></i>
@@ -1054,7 +1111,7 @@
                     <i class="fas fa-coins"></i>
                     <span id="coinAmount">1,250</span>
                 </div>
-                 <button class="theme-toggle" id="themeToggle">
+                <button class="theme-toggle" id="themeToggle">
                     <i class="fas fa-moon"></i>
                 </button>
                 <button class="btn btn-primary" id="loginButton" onclick="showModal('loginModal')">
@@ -1174,20 +1231,28 @@
                         </div>
                         <div class="chat-messages" id="chatMessages">
                             <div class="message other">
-                                <strong>OtakuMaster:</strong> Just finished Attack on Titan! 🔥
+                                <div class="message-sender">OtakuMaster</div>
+                                Just finished Attack on Titan! 🔥
                                 <div class="message-time">10:42 AM</div>
                             </div>
                             <div class="message other">
-                                <strong>AnimeQueen:</strong> The ending was amazing!
+                                <div class="message-sender">AnimeQueen</div>
+                                The ending was amazing!
                                 <div class="message-time">10:43 AM</div>
                             </div>
+                            <div class="message ai">
+                                <div class="message-sender">AI Assistant</div>
+                                Welcome to AnimeWorld chat! Type /help for commands.
+                                <div class="message-time">10:44 AM</div>
+                            </div>
                             <div class="message user">
-                                <strong>You:</strong> Currently watching Demon Slayer
+                                <div class="message-sender">You</div>
+                                Currently watching Demon Slayer
                                 <div class="message-time">10:45 AM</div>
                             </div>
                         </div>
                         <div class="chat-input-container">
-                            <input type="text" class="chat-input" placeholder="Type your message..." id="chatInput">
+                            <input type="text" class="chat-input" placeholder="Type your message..." id="chatInput" onkeypress="handleChatInput(event)">
                             <button class="btn btn-primary" onclick="sendMessage()">
                                 <i class="fas fa-paper-plane"></i>
                             </button>
@@ -1197,20 +1262,32 @@
                     <div class="card">
                         <h3><i class="fas fa-door-open"></i> Chat Rooms</h3>
                         <div style="display: flex; flex-direction: column; gap: 1rem;">
-                            <div class="nav-item" style="text-align: center;">
+                            <div class="nav-item" style="text-align: center;" onclick="changeChatRoom('general')">
                                 <i class="fas fa-comments"></i> General Discussion (234)
                             </div>
-                            <div class="nav-item" style="text-align: center;">
+                            <div class="nav-item" style="text-align: center;" onclick="changeChatRoom('releases')">
                                 <i class="fas fa-film"></i> New Releases (89)
                             </div>
-                            <div class="nav-item" style="text-align: center;">
+                            <div class="nav-item" style="text-align: center;" onclick="changeChatRoom('manga')">
                                 <i class="fas fa-book"></i> Manga Discussion (156)
                             </div>
-                            <div class="nav-item" style="text-align: center;">
+                            <div class="nav-item" style="text-align: center;" onclick="changeChatRoom('art')">
                                 <i class="fas fa-paint-brush"></i> Fan Art Sharing (67)
                             </div>
-                            <div class="nav-item" style="text-align: center;">
+                            <div class="nav-item" style="text-align: center;" onclick="changeChatRoom('recommendations')">
                                 <i class="fas fa-star"></i> Recommendations (123)
+                            </div>
+                        </div>
+                        <h3 style="margin-top: 2rem;"><i class="fas fa-robot"></i> AI Characters</h3>
+                        <div style="display: flex; flex-direction: column; gap: 1rem;">
+                            <div class="nav-item" style="text-align: center;" onclick="startAIChat('naruto')">
+                                <i class="fas fa-user-ninja"></i> Chat with Naruto
+                            </div>
+                            <div class="nav-item" style="text-align: center;" onclick="startAIChat('sasuke')">
+                                <i class="fas fa-eye"></i> Chat with Sasuke
+                            </div>
+                            <div class="nav-item" style="text-align: center;" onclick="startAIChat('sakura')">
+                                <i class="fas fa-heart"></i> Chat with Sakura
                             </div>
                         </div>
                     </div>
@@ -1223,11 +1300,11 @@
             <div class="container">
                 <h2><i class="fas fa-robot"></i> AI Character Video Calls</h2>
                 <p style="margin-bottom: 2rem; text-align: center; color: var(--text-secondary);">
-                    Spend your virtual                    Spend your virtual coins to have video calls with AI versions of your favorite anime characters.
+                    Spend your virtual coins to have video calls with AI versions of your favorite anime characters.
                 </p>
                 
                 <div class="character-grid">
-                    <div class="character-card" onclick="startCall('naruto',50)">
+                    <div class="character-card" onclick="startCall('naruto')">
                         <div class="character-avatar">
                             <i class="fas fa-user-ninja"></i>
                         </div>
@@ -1285,17 +1362,24 @@
                     </div>
                 </div>
                 
-                <div class="video-call" id="videoCall">
+                <div class="video-call" id="videoCallContainer" style="display: none;">
                     <div class="video-screen" id="videoScreen">
                         <div class="call-character" id="callCharacter">Calling...</div>
+                        <div class="user-video" id="userVideoContainer" style="display: none;">
+                            <video id="userVideo" autoplay muted></video>
+                        </div>
+                        <div class="character-response" id="characterResponse"></div>
                     </div>
                     <div class="call-controls">
-                        <button class="call-btn mute" onclick="toggleMute()">
+                        <button class="call-btn mute" id="muteButton" onclick="toggleMute()">
                             <i class="fas fa-microphone"></i>
                         </button>
                         <button class="call-btn end" onclick="endCall()">
                             <i class="fas fa-phone-slash"></i>
                         </button>
+                    </div>
+                    <div style="text-align: center; margin-top: 1rem;">
+                        <span id="callTimer">00:00</span> • <span id="callCost">Cost: 0 coins</span>
                     </div>
                 </div>
             </div>
@@ -1528,42 +1612,25 @@
                         <h3><i class="fas fa-user-circle"></i> Account Information</h3>
                         <div class="form-group">
                             <label class="form-label">Username</label>
-                            <input type="text" class="form-input" value="AnimeFan123" readonly>
+                            <input type="text" class="form-input" id="profileUsername" value="AnimeFan123" readonly>
                         </div>
                         <div class="form-group">
                             <label class="form-label">Email</label>
-                            <input type="email" class="form-input" value="animefan@example.com">
+                            <input type="email" class="form-input" id="profileEmail" value="animefan@example.com">
                         </div>
                         <div class="form-group">
                             <label class="form-label">Favorite Anime</label>
-                            <input type="text" class="form-input" placeholder="Enter your favorite anime">
+                            <input type="text" class="form-input" id="favoriteAnime" placeholder="Enter your favorite anime">
                         </div>
-                        <button class="btn btn-primary" style="width: 100%;">Update Profile</button>
+                        <button class="btn btn-primary" style="width: 100%;" onclick="updateProfile()">
+                            Update Profile
+                        </button>
                     </div>
                     
                     <div class="card">
                         <h3><i class="fas fa-history"></i> Watching History</h3>
-                        <div style="max-height: 300px; overflow-y: auto;">
-                            <div style="display: flex; justify-content: space-between; padding: 0.5rem; border-bottom: 1px solid rgba(255,255,255,0.1);">
-                                <span>Demon Slayer: Entertainment District Arc</span>
-                                <span>Episode 10</span>
-                            </div>
-                            <div style="display: flex; justify-content: space-between; padding: 0.5rem; border-bottom: 1px solid rgba(255,255,255,0.1);">
-                                <span>Attack on Titan: Final Season</span>
-                                <span>Episode 22</span>
-                            </div>
-                            <div style="display: flex; justify-content: space-between; padding: 0.5rem; border-bottom: 1px solid rgba(255,255,255,0.1);">
-                                <span>Jujutsu Kaisen Season 2</span>
-                                <span>Episode 5</span>
-                            </div>
-                            <div style="display: flex; justify-content: space-between; padding: 0.5rem; border-bottom: 1px solid rgba(255,255,255,0.1);">
-                                <span>Spy x Family</span>
-                                <span>Episode 12</span>
-                            </div>
-                            <div style="display: flex; justify-content: space-between; padding: 0.5rem; border-bottom: 1px solid rgba(255,255,255,0.1);">
-                                <span>Chainsaw Man</span>
-                                <span>Episode 8</span>
-                            </div>
+                        <div style="max-height: 300px; overflow-y: auto;" id="watchingHistory">
+                            <!-- Watching history will be populated here -->
                         </div>
                     </div>
                     
@@ -1580,30 +1647,13 @@
                     
                     <div class="card">
                         <h3><i class="fas fa-trophy"></i> Achievements</h3>
-                        <div style="display: flex; flex-wrap: wrap; gap: 1rem;">
-                            <div style="text-align: center;">
-                                <div style="width: 60px; height: 60px; background: var(--gradient-primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 0.5rem;">
-                                    <i class="fas fa-eye"></i>
-                                </div>
-                                <div>100 Episodes</div>
-                            </div>
-                            <div style="text-align: center;">
-                                <div style="width: 60px; height: 60px; background: var(--gradient-secondary); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 0.5rem;">
-                                    <i class="fas fa-comments"></i>
-                                </div>
-                                <div>Chat Master</div>
-                            </div>
-                            <div style="text-align: center;">
-                                <div style="width: 60px; height: 60px; background: var(--accent-color); border-radius: 50%; color: #000; display: flex; align-items: center; justify-content: center; margin: 0 auto 0.5rem;">
-                                    <i class="fas fa-store"></i>
-                                </div>
-                                <div>First Purchase</div>
-                            </div>
+                        <div style="display: flex; flex-wrap: wrap; gap: 1rem;" id="achievements">
+                            <!-- Achievements will be populated here -->
                         </div>
                         <div class="progress-container">
-                            <div class="progress-bar" style="width: 45%;"></div>
+                            <div class="progress-bar" id="levelProgress" style="width: 45%;"></div>
                         </div>
-                        <div style="text-align: center;">Level 3 (45%)</div>
+                        <div style="text-align: center;" id="levelText">Level 3 (45%)</div>
                     </div>
                 </div>
             </div>
@@ -1752,6 +1802,10 @@
         let activeCall = null;
         let callInterval = null;
         let isMuted = false;
+        let callStartTime = null;
+        let callTimerInterval = null;
+        let currentChatRoom = 'general';
+        let activeAIChat = null;
         
         // Sample anime data
         const animeData = [
@@ -1771,14 +1825,46 @@
         
         // Character call data
         const characterData = {
-            naruto: { name: "Naruto Uzumaki", cost: 100, icon: "fa-user-ninja" },
-            sasuke: { name: "Sasuke Uchiha", cost: 120, icon: "fa-eye" },
-            sakura: { name: "Sakura Haruno", cost: 90, icon: "fa-heart" },
-            goku: { name: "Goku", cost: 150, icon: "fa-bolt" },
-            vegeta: { name: "Vegeta", cost: 140, icon: "fa-crown" },
-            luffy: { name: "Monkey D. Luffy", cost: 130, icon: "fa-hat-cowboy" },
-            zoro: { name: "Roronoa Zoro", cost: 110, icon: "fa-swords" },
-            nami: { name: "Nami", cost: 95, icon: "fa-map-marked-alt" }
+            naruto: { name: "Naruto Uzumaki", cost: 100, icon: "fa-user-ninja", responses: [
+                "Believe it! That's my ninja way!",
+                "I'm gonna be Hokage someday, just you wait!",
+                "Sasuke is my friend, no matter what!"
+            ]},
+            sasuke: { name: "Sasuke Uchiha", cost: 120, icon: "fa-eye", responses: [
+                "Hmph. What do you want?",
+                "I have no time for this nonsense.",
+                "My only goal is to kill Itachi."
+            ]},
+            sakura: { name: "Sakura Haruno", cost: 90, icon: "fa-heart", responses: [
+                "Naruto, don't be so reckless!",
+                "I've trained hard to become stronger!",
+                "I'll protect my precious people!"
+            ]},
+            goku: { name: "Goku", cost: 150, icon: "fa-bolt", responses: [
+                "I'm gonna be the strongest fighter in the universe!",
+                "Let's train together!",
+                "Kamehameha!"
+            ]},
+            vegeta: { name: "Vegeta", cost: 140, icon: "fa-crown", responses: [
+                "I am the Prince of all Saiyans!",
+                "Kakarot will never surpass me!",
+                "Hmph. You're not worth my time."
+            ]},
+            luffy: { name: "Monkey D. Luffy", cost: 130, icon: "fa-hat-cowboy", responses: [
+                "I'm gonna be King of the Pirates!",
+                "Meat! I want meat!",
+                "I'll protect my nakama no matter what!"
+            ]},
+            zoro: { name: "Roronoa Zoro", cost: 110, icon: "fa-swords", responses: [
+                "I'll become the world's greatest swordsman.",
+                "I never get lost. I just take scenic routes.",
+                "Three sword style is the strongest!"
+            ]},
+            nami: { name: "Nami", cost: 95, icon: "fa-map-marked-alt", responses: [
+                "That'll be 100,000 berries for this information.",
+                "Luffy! Stop causing trouble!",
+                "I'll draw a map of the whole world!"
+            ]}
         };
         
         // Poll data
@@ -1794,6 +1880,140 @@
                 votes: [200, 150, 180, 120]
             }
         };
+        
+        // Chat rooms data
+        const chatRooms = {
+            general: { name: "General Discussion", online: 234, messages: [
+                { sender: "OtakuMaster", text: "Just finished Attack on Titan! 🔥", time: "10:42 AM" },
+                { sender: "AnimeQueen", text: "The ending was amazing!", time: "10:43 AM" },
+                { sender: "AI Assistant", text: "Welcome to AnimeWorld chat! Type /help for commands.", time: "10:44 AM", ai: true },
+                { sender: "You", text: "Currently watching Demon Slayer", time: "10:45 AM", user: true }
+            ]},
+            releases: { name: "New Releases", online: 89, messages: [
+                { sender: "AI Assistant", text: "Welcome to New Releases chat!", time: "9:30 AM", ai: true },
+                { sender: "AnimeLover", text: "Did you see the new Jujutsu Kaisen episode?", time: "9:35 AM" },
+                { sender: "You", text: "Yes! It was incredible!", time: "9:36 AM", user: true }
+            ]},
+            manga: { name: "Manga Discussion", online: 156, messages: [
+                { sender: "AI Assistant", text: "Welcome to Manga Discussion chat!", time: "11:20 AM", ai: true },
+                { sender: "MangaFan", text: "The latest One Piece chapter was wild!", time: "11:25 AM" },
+                { sender: "You", text: "I know right? Oda never disappoints!", time: "11:26 AM", user: true }
+            ]},
+            art: { name: "Fan Art Sharing", online: 67, messages: [
+                { sender: "AI Assistant", text: "Welcome to Fan Art Sharing chat!", time: "2:15 PM", ai: true },
+                { sender: "Artist123", text: "Check out my latest Demon Slayer fan art!", time: "2:20 PM" },
+                { sender: "You", text: "That looks amazing!", time: "2:21 PM", user: true }
+            ]},
+            recommendations: { name: "Recommendations", online: 123, messages: [
+                { sender: "AI Assistant", text: "Welcome to Recommendations chat!", time: "4:45 PM", ai: true },
+                { sender: "AnimeGuru", text: "If you liked Attack on Titan, try Vinland Saga!", time: "4:50 PM" },
+                { sender: "You", text: "Thanks for the recommendation!", time: "4:51 PM", user: true }
+            ]}
+        };
+        
+        // AI chat responses
+        const aiResponses = {
+            naruto: [
+                "Believe it! That's my ninja way!",
+                "I'm gonna be Hokage someday, just you wait!",
+                "Sasuke is my friend, no matter what!",
+                "Ramennnn! I love ramen!",
+                "I won't give up, no matter how hard it gets!",
+                "My dream is to become the strongest ninja!",
+                "I will protect my friends with my life!",
+                "I have a lot to learn, but I'll never stop trying!",
+                "I may not be the smartest, but I have a big heart!",
+                "I won't let anyone down, not ever!"
+            ],
+            sasuke: [
+                "Hmph. What do you want?",
+                "I have no time for this nonsense.",
+                "My only goal is to kill Itachi.",
+                "I will become stronger, no matter the cost.",
+                "I don't care about anyone else, just my revenge.",
+                "I will not let my past define me.",
+                "I will surpass everyone who stands in my way.",
+                "I don't need friends, I have my own path to follow.",
+                "I will not lose to anyone, especially not Naruto.",
+                "I will achieve my goals, even if it means being alone."
+            ],
+            sakura: [
+                "Naruto, don't be so reckless!",
+                "I've trained hard to become stronger!",
+                "I'll protect my precious people!",
+                "I won't let anyone hurt my friends!",
+                "I may not be the strongest, but I won't give up!",
+                "I will prove that I'm more than just a medical ninja.",
+                "I will become a great kunoichi, just like Tsunade!",
+                "I will always support my friends, no matter what.",
+                "I will never let my past hold me back.",
+                "I will fight for my dreams and the people I care about!"
+            ],
+            goku: [
+                "I'm gonna be the strongest fighter in the universe!",
+                "Let's train together!",
+                "Kamehameha!",
+                "I love a good challenge!",
+                "I won't back down from any fight!",
+                "I will protect my friends and family at all costs!",
+                "I believe in the power of friendship!",
+                "I will never stop training to become stronger!",
+                "I will always strive to be the best version of myself!",
+                "I will never give up, no matter how tough it gets!"
+            ],
+            vegeta: [
+                "I am the Prince of all Saiyans!",
+                "Kakarot will never surpass me!",
+                "Hmph. You're not worth my time.",
+                "I will achieve my ultimate form!",
+                "I will destroy anyone who stands in my way!",
+                "I will not let anyone disrespect the Saiyan name!",
+                "I will prove that I am the strongest warrior in the universe!",
+                "I will not let my pride be tarnished!",
+                "I will train harder than anyone else!",
+                "I will not rest until I am the best!"
+            ],
+            luffy: [
+                "I'm gonna be King of the Pirates!",
+                "Meat! I want meat!",
+                "I'll protect my nakama no matter what!",
+                "I will never back down from a fight!",
+                "I will find the One Piece and become the Pirate King!",
+                "I believe in my friends and their dreams!",
+                "I will never give up, no matter how tough it gets!",
+                "I will sail the seas and explore the world!",
+                "I will always follow my own path!",
+                "I will never let anyone take away my freedom!"
+            ],
+            zoro: [
+                "I'll become the world's greatest swordsman.",
+                "I never get lost. I just take scenic routes.",
+                "Three sword style is the strongest!",
+                "I will cut down anyone who stands in my way!",
+                "I will not let my injuries hold me back!",
+                "I will train harder than anyone else!",
+                "I will protect my captain and crew at all costs!",
+                "I will never give up on my dream!",
+                "I will not rest until I achieve my goal!",
+                "I will prove that I am the best swordsman in the world!"
+            ],
+            nami: [
+                "That'll be 100,000 berries for this information.",
+                "Luffy! Stop causing trouble!",
+                "I'll draw a map of the whole world!",
+                "I will protect my crew and our ship!",
+                "I will never let anyone steal from us!",
+                "I will always find a way to get what I want!",
+                "I will not let anyone underestimate me!",
+                "I will use my intelligence to outsmart my enemies!",
+                "I will always follow my own path!",
+                "I will never give up on my dreams!"
+            ]
+        };
+  
+
+
+
         
         // Initialize the page
         document.addEventListener('DOMContentLoaded', function() {

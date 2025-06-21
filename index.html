@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anime World - Your Ultimate Anime Destination</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>AnimeWorld</title>
     <style>
         * {
             margin: 0;
@@ -12,420 +11,511 @@
             box-sizing: border-box;
         }
 
-        :root {
-            --primary-color: #ff6b9d;
-            --secondary-color: #4ecdc4;
-            --accent-color: #ffd93d;
-            --bg-dark: #0a0a0a;
-            --bg-secondary: #1a1a2e;
-            --bg-card: #16213e;
-            --text-primary: #ffffff;
-            --text-secondary: #b0b3b8;
-            --gradient-primary: linear-gradient(135deg, #ff6b9d, #4ecdc4);
-            --gradient-secondary: linear-gradient(45deg, #667eea 0%, #764ba2 100%);
-            --shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-            --transition: all 0.3s ease;
-        }
-
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: var(--bg-dark);
-            color: var(--text-primary);
-            line-height: 1.6;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #1a1a1a;
+            color: white;
             overflow-x: hidden;
         }
 
-        /* Header & Navigation */
-        .header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: rgba(26, 26, 46, 0.95);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            padding: 1rem 0;
-            border-bottom: 1px solid rgba(255, 107, 157, 0.3);
+        .app-container {
+            max-width: 400px;
+            margin: 0 auto;
+            min-height: 100vh;
+            background: #2d2d2d;
+            position: relative;
         }
 
-        .nav-container {
-            max-width: 1400px;
-            margin: 0 auto;
+        /* Header */
+        .header {
+            padding: 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 2rem;
-        }
-
-        .logo {
-            font-size: 2rem;
-            font-weight: bold;
-            background: var(--gradient-primary);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .logo i {
-            font-size: 1.8rem;
-        }
-
-        .nav-menu {
-            display: flex;
-            list-style: none;
-            gap: 1rem;
-        }
-
-        .nav-item {
-            cursor: pointer;
-            padding: 0.5rem 1rem;
-            border-radius: 25px;
-            transition: var(--transition);
-            position: relative;
-            white-space: nowrap;
-        }
-
-        .nav-item:hover {
-            background: rgba(255, 107, 157, 0.2);
-            transform: translateY(-2px);
-        }
-
-        .user-actions {
-            display: flex;
-            gap: 1rem;
-            align-items: center;
-        }
-
-        .coin-display {
-            background: var(--gradient-secondary);
-            padding: 0.5rem 1rem;
-            border-radius: 25px;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .btn {
-            padding: 0.5rem 1.5rem;
-            border: none;
-            border-radius: 25px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: var(--transition);
-            text-decoration: none;
-            display: inline-block;
-            text-align: center;
-        }
-
-        .btn-primary {
-            background: var(--gradient-primary);
-            color: white;
-        }
-
-        .btn-secondary {
-            background: transparent;
-            border: 2px solid var(--secondary-color);
-            color: var(--secondary-color);
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow);
-        }
-
-        .btn-sm {
-            padding: 0.25rem 0.75rem;
-            font-size: 0.9rem;
-        }
-
-        /* Main Content */
-        .main-content {
-            margin-top: 80px;
-            min-height: calc(100vh - 80px);
-        }
-
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
-
-        .section {
-            display: none;
-            animation: fadeIn 0.5s ease-in;
-        }
-
-        .section.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Hero Section */
-        .hero {
-            background: var(--gradient-secondary);
-            padding: 4rem 2rem;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
+            background: #2d2d2d;
+            position: sticky;
             top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon fill="%23ffffff" fill-opacity="0.05" points="0,0 1000,300 1000,1000 0,700"/></svg>');
+            z-index: 100;
         }
 
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            max-width: 800px;
-            margin: 0 auto;
+        .header h1 {
+            font-size: 24px;
+            font-weight: bold;
         }
 
-        .hero h1 {
-            font-size: clamp(2.5rem, 5vw, 3.5rem);
-            margin-bottom: 1rem;
-            animation: slideInUp 1s ease;
-        }
-
-        .hero p {
-            font-size: clamp(1rem, 2vw, 1.2rem);
-            margin-bottom: 2rem;
-            opacity: 0.9;
-        }
-
-        /* Cards */
-        .card {
-            background: var(--bg-card);
-            border-radius: 15px;
-            padding: 1.5rem;
-            margin-bottom: 2rem;
-            box-shadow: var(--shadow);
-            border: 1px solid rgba(255, 107, 157, 0.1);
-            transition: var(--transition);
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 40px rgba(255, 107, 157, 0.2);
-        }
-
-        .card h3 {
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .grid {
-            display: grid;
-            gap: 2rem;
-        }
-
-        .grid-2 {
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        }
-
-        .grid-3 {
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        }
-
-        .grid-4 {
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        }
-
-        /* Anime Streaming Section */
-        .search-filters {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
-        }
-
-        .search-input {
-            flex: 1;
-            min-width: 200px;
-            padding: 1rem;
-            border: none;
-            border-radius: 25px;
-            background: var(--bg-card);
-            color: var(--text-primary);
-            font-size: 1rem;
-        }
-
-        .filter-select {
-            padding: 1rem;
-            border: none;
-            border-radius: 25px;
-            background: var(--bg-card);
-            color: var(--text-primary);
+        .header-icon {
+            width: 24px;
+            height: 24px;
             cursor: pointer;
-            min-width: 150px;
+            opacity: 0.8;
+            transition: opacity 0.2s;
+        }
+
+        .header-icon:hover {
+            opacity: 1;
+        }
+
+        .back-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        /* Search Bar */
+        .search-container {
+            padding: 0 20px 20px;
+        }
+
+        .search-bar {
+            background: #404040;
+            border: none;
+            border-radius: 25px;
+            padding: 12px 20px;
+            color: white;
+            width: 100%;
+            font-size: 16px;
+        }
+
+        .search-bar::placeholder {
+            color: #888;
+        }
+
+        /* Content Sections */
+        .section {
+            margin-bottom: 30px;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        /* Featured Anime Grid */
+        .featured-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
         }
 
         .anime-card {
-            position: relative;
+            background: #404040;
+            border-radius: 12px;
             overflow: hidden;
-            border-radius: 15px;
-            aspect-ratio: 3/4;
-            background: var(--gradient-secondary);
             cursor: pointer;
-            transition: var(--transition);
+            transition: transform 0.2s;
         }
 
         .anime-card:hover {
-            transform: scale(1.03);
+            transform: scale(1.02);
         }
 
-        .anime-poster {
+        .anime-card img {
             width: 100%;
-            height: 70%;
-            background: rgba(255, 255, 255, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
+            height: 120px;
+            object-fit: cover;
         }
 
-        .anime-info {
-            padding: 1rem;
-            height: 30%;
+        .anime-card-info {
+            padding: 12px;
         }
 
-        .anime-title {
+        .anime-card-title {
             font-weight: bold;
-            margin-bottom: 0.5rem;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
+            font-size: 14px;
+            margin-bottom: 4px;
         }
 
-        .anime-meta {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
+        .anime-card-subtitle {
+            color: #888;
+            font-size: 12px;
+        }
+
+        /* Quick Access */
+        .quick-access {
             display: flex;
             justify-content: space-between;
+            gap: 10px;
         }
 
-        /* Chat Room */
-        .chat-container {
-            height: 500px;
-            display: flex;
-            flex-direction: column;
-            background: var(--bg-card);
-            border-radius: 15px;
-            overflow: hidden;
-        }
-
-        .chat-header {
-            background: var(--gradient-primary);
-            padding: 1rem;
-            font-weight: bold;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .online-count {
-            background: rgba(0, 0, 0, 0.2);
-            padding: 0.25rem 0.75rem;
-            border-radius: 15px;
-            font-size: 0.9rem;
-        }
-
-        .chat-messages {
+        .quick-btn {
             flex: 1;
-            padding: 1rem;
-            overflow-y: auto;
+            background: #404040;
+            border: none;
+            border-radius: 12px;
+            padding: 15px 8px;
+            color: white;
+            cursor: pointer;
+            transition: background 0.2s;
             display: flex;
             flex-direction: column;
-            gap: 0.5rem;
+            align-items: center;
+            gap: 8px;
         }
 
-        .message {
-            padding: 0.5rem 1rem;
-            border-radius: 15px;
-            max-width: 80%;
-            word-wrap: break-word;
-            position: relative;
+        .quick-btn:hover {
+            background: #505050;
         }
 
-        .message.user {
-            background: var(--primary-color);
-            margin-left: auto;
+        .quick-btn.active {
+            background: #007bff;
+        }
+
+        .quick-btn-icon {
+            width: 24px;
+            height: 24px;
+            background: #666;
+            border-radius: 6px;
+        }
+
+        .quick-btn-text {
+            font-size: 12px;
+        }
+
+        /* New Arrivals */
+        .new-arrivals-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .new-arrival-card {
+            background: #404040;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .new-arrival-card:hover {
+            transform: scale(1.02);
+        }
+
+        .new-arrival-card:nth-child(3) {
+            grid-column: span 2;
+        }
+
+        .new-arrival-card img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+        }
+
+        .new-arrival-info {
+            padding: 12px;
+        }
+
+        .new-arrival-title {
+            font-weight: bold;
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+
+        .new-arrival-genre {
+            color: #888;
+            font-size: 12px;
+        }
+
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 400px;
+            background: #2d2d2d;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-around;
+            border-top: 1px solid #404040;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            color: #888;
+            cursor: pointer;
+            transition: color 0.2s;
+            font-size: 12px;
+        }
+
+        .nav-item.active {
+            color: #007bff;
+        }
+
+        .nav-item:hover {
             color: white;
         }
 
-        .message.other {
-            background: var(--bg-secondary);
-            margin-right: auto;
+        .nav-icon {
+            width: 20px;
+            height: 20px;
+            background: currentColor;
+            border-radius: 3px;
         }
 
-        .message.ai {
-            background: var(--accent-color);
-            margin-right: auto;
-            color: #000;
+        /* Page States */
+        .page {
+            display: none;
+            padding-bottom: 80px;
         }
 
-        .message-time {
-            font-size: 0.7rem;
-            opacity: 0.7;
-            margin-top: 0.25rem;
+        .page.active {
+            display: block;
         }
 
-        .message-sender {
-            font-weight: bold;
-            margin-bottom: 0.25rem;
-        }
-
-        .chat-input-container {
+        /* Messages Page */
+        .message-header {
             display: flex;
-            padding: 1rem;
-            gap: 1rem;
-            background: var(--bg-secondary);
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            border-bottom: 1px solid #404040;
         }
 
-        .chat-input {
-            flex: 1;
-            padding: 0.75rem;
+        .message-tabs {
+            display: flex;
+            gap: 20px;
+            padding: 15px 20px;
+            border-bottom: 1px solid #404040;
+        }
+
+        .message-tab {
+            color: #888;
+            cursor: pointer;
+            padding: 5px 0;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .message-tab.active {
+            color: white;
+            border-bottom-color: #007bff;
+        }
+
+        .message-list {
+            padding: 20px;
+        }
+
+        .message-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px 0;
+            border-bottom: 1px solid #404040;
+            cursor: pointer;
+        }
+
+        .message-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #007bff;
+        }
+
+        .message-content h4 {
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+
+        .message-content p {
+            color: #888;
+            font-size: 12px;
+        }
+
+        /* Shop Page */
+        .shop-tabs {
+            display: flex;
+            gap: 15px;
+            padding: 15px 20px;
+            border-bottom: 1px solid #404040;
+            overflow-x: auto;
+        }
+
+        .shop-tab {
+            color: #888;
+            cursor: pointer;
+            padding: 8px 16px;
+            border-radius: 20px;
+            background: #404040;
+            white-space: nowrap;
+            font-size: 12px;
+            transition: all 0.2s;
+        }
+
+        .shop-tab.active {
+            background: #007bff;
+            color: white;
+        }
+
+        .featured-items {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .shop-item {
+            background: #404040;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .shop-item:hover {
+            transform: scale(1.02);
+        }
+
+        .shop-item img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+        }
+
+        .shop-item-info {
+            padding: 12px;
+        }
+
+        .shop-item-title {
+            font-size: 12px;
+            color: #888;
+            margin-bottom: 4px;
+        }
+
+        .shop-item-name {
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        /* Profile/Coins Page */
+        .profile-header {
+            text-align: center;
+            padding: 30px 20px;
+        }
+
+        .profile-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: #007bff;
+            margin: 0 auto 15px;
+        }
+
+        .profile-name {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .profile-coins {
+            color: #888;
+            font-size: 14px;
+        }
+
+        .coins-section {
+            padding: 20px;
+        }
+
+        .coins-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .coin-package {
+            background: #404040;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .coin-package:hover {
+            background: #505050;
+        }
+
+        .coin-amount {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .purchase-btn {
+            background: #007bff;
             border: none;
             border-radius: 25px;
-            background: var(--bg-card);
-            color: var(--text-primary);
-        }
-
-        /* AI Character Call */
-        .character-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .character-card {
-            text-align: center;
-            padding: 2rem;
-            background: var(--bg-card);
-            border-radius: 15px;
+            padding: 12px 30px;
+            color: white;
+            font-weight: bold;
             cursor: pointer;
-            transition: var(--transition);
-            border: 2px solid transparent;
+            width: 100%;
+            margin-bottom: 30px;
+            transition: background 0.2s;
         }
 
-        .character-card:hover {
-            border-color: var(--primary-color);
+        .purchase-btn:hover {
+            background: #0056b3;
+        }
+
+        .transaction-history {
+            margin-top: 20px;
+        }
+
+        .transaction-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #404040;
+        }
+
+        .transaction-info h4 {
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+
+        .transaction-info p {
+            color: #888;
+            font-size: 12px;
+        }
+
+        .transaction-amount {
+            font-weight: bold;
+        }
+
+        .transaction-amount.positive {
+            color: #28a745;
+        }
+
+        .transaction-amount.negative {
+            color: #dc3545;
+        }
+
+        /* Call Page */
+        .character-selection {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .character-option {
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .character-option:hover {
             transform: scale(1.05);
         }
 
@@ -433,1984 +523,712 @@
             width: 80px;
             height: 80px;
             border-radius: 50%;
-            background: var(--gradient-primary);
-            margin: 0 auto 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
+            background: #404040;
+            margin: 0 auto 10px;
+            border: 3px solid transparent;
+            transition: border-color 0.2s;
+        }
+
+        .character-option.selected .character-avatar {
+            border-color: #007bff;
         }
 
         .character-name {
             font-weight: bold;
-            margin-bottom: 0.5rem;
         }
 
-        .character-cost {
-            color: var(--accent-color);
+        .call-settings {
+            margin-bottom: 30px;
+        }
+
+        .setting-group {
+            margin-bottom: 20px;
+        }
+
+        .setting-label {
+            display: block;
+            margin-bottom: 8px;
             font-weight: bold;
         }
 
-        /* Polls */
-        .poll-card {
-            background: var(--bg-card);
-            border-radius: 15px;
-            padding: 2rem;
-            margin-bottom: 2rem;
+        .setting-input {
+            background: #404040;
+            border: none;
+            border-radius: 8px;
+            padding: 12px;
+            color: white;
+            width: 100%;
+            font-size: 14px;
         }
 
-        .poll-question {
-            font-size: 1.2rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .poll-option {
+        .setting-checkbox {
             display: flex;
             align-items: center;
-            padding: 1rem;
-            margin-bottom: 1rem;
-            background: var(--bg-secondary);
-            border-radius: 10px;
+            gap: 10px;
+            padding: 15px 0;
+        }
+
+        .checkbox {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #666;
+            border-radius: 4px;
             cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .poll-option:hover {
-            background: rgba(255, 107, 157, 0.1);
-        }
-
-        .poll-option input[type="radio"] {
-            margin-right: 1rem;
-        }
-
-        .poll-results {
-            margin-top: 1rem;
-        }
-
-        .result-bar {
-            height: 30px;
-            background: var(--bg-secondary);
-            border-radius: 15px;
-            margin-bottom: 0.5rem;
-            overflow: hidden;
             position: relative;
         }
 
-        .result-fill {
-            height: 100%;
-            background: var(--gradient-primary);
-            transition: width 0.5s ease;
-            display: flex;
-            align-items: center;
-            padding: 0 1rem;
+        .checkbox.checked {
+            background: #007bff;
+            border-color: #007bff;
+        }
+
+        .checkbox.checked::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 12px;
+        }
+
+        .start-call-btn {
+            background: #007bff;
+            border: none;
+            border-radius: 25px;
+            padding: 15px 30px;
             color: white;
             font-weight: bold;
-            font-size: 0.9rem;
-        }
-
-        /* Store */
-        .product-card {
-            background: var(--bg-card);
-            border-radius: 15px;
-            overflow: hidden;
-            transition: var(--transition);
-        }
-
-        .product-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .product-image {
-            height: 200px;
-            background: var(--gradient-secondary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
-            position: relative;
-        }
-
-        .product-badge {
-            position: absolute;
-            top: 0.5rem;
-            right: 0.5rem;
-            background: var(--accent-color);
-            color: #000;
-            padding: 0.25rem 0.5rem;
-            border-radius: 15px;
-            font-size: 0.8rem;
-            font-weight: bold;
-        }
-
-        .product-info {
-            padding: 1.5rem;
-        }
-
-        .product-name {
-            font-weight: bold;
-            margin-bottom: 0.5rem;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .product-price {
-            color: var(--accent-color);
-            font-size: 1.2rem;
-            font-weight: bold;
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .product-price .original {
-            text-decoration: line-through;
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
-
-        .product-actions {
-            display: flex;
-            gap: 0.5rem;
-        }
-
-        /* Forms */
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: var(--text-secondary);
-        }
-
-        .form-input {
-            width: 100%;
-            padding: 1rem;
-            border: none;
-            border-radius: 10px;
-            background: var(--bg-card);
-            color: var(--text-primary);
-            border: 1px solid rgba(255, 107, 157, 0.3);
-        }
-
-        .form-input:focus {
-            outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(255, 107, 157, 0.1);
-        }
-
-        /* Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            z-index: 2000;
-            backdrop-filter: blur(5px);
-            overflow-y: auto;
-        }
-
-        .modal.active {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 1rem;
-        }
-
-        .modal-content {
-            background: var(--bg-card);
-            padding: 2rem;
-            border-radius: 15px;
-            max-width: 500px;
-            width: 100%;
-            position: relative;
-            margin: auto;
-        }
-
-        .modal-close {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            background: none;
-            border: none;
-            color: var(--text-primary);
-            font-size: 1.5rem;
             cursor: pointer;
-            z-index: 1;
+            width: 100%;
+            font-size: 16px;
+            transition: background 0.2s;
         }
 
-        .modal-title {
-            margin-bottom: 1.5rem;
-            text-align: center;
-        }
-
-        /* Responsive */
-        @media (max-width: 992px) {
-            .nav-menu {
-                position: fixed;
-                top: 80px;
-                left: 0;
-                right: 0;
-                background: var(--bg-secondary);
-                flex-direction: column;
-                padding: 1rem;
-                gap: 0.5rem;
-                transform: translateY(-100%);
-                opacity: 0;
-                transition: var(--transition);
-                z-index: 999;
-                border-bottom: 1px solid rgba(255, 107, 157, 0.3);
-            }
-
-            .nav-menu.active {
-                transform: translateY(0);
-                opacity: 1;
-            }
-
-            .nav-item {
-                text-align: center;
-                padding: 1rem;
-            }
-
-            .menu-toggle {
-                display: block;
-                background: none;
-                border: none;
-                color: var(--text-primary);
-                font-size: 1.5rem;
-                cursor: pointer;
-                order: -1;
-                margin-right: auto;
-            }
-
-            .user-actions {
-                margin-left: auto;
-            }
-
-            .container {
-                padding: 1rem;
-            }
-
-            .search-filters {
-                flex-direction: column;
-            }
-
-            .filter-select, .search-input {
-                width: 100%;
-            }
-
-            .grid-2, .grid-3, .grid-4 {
-                grid-template-columns: 1fr;
-            }
-
-            .hero {
-                padding: 3rem 1rem;
-            }
-        }
-
-        @media (min-width: 993px) {
-            .menu-toggle {
-                display: none;
-            }
+        .start-call-btn:hover {
+            background: #0056b3;
         }
 
         /* Animations */
-        @keyframes slideInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .anime-card, .new-arrival-card, .shop-item {
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            .app-container {
+                max-width: 100%;
             }
-            to {
-                opacity: 1;
-                transform: translateY(0);
+            
+            .bottom-nav {
+                max-width: 100%;
             }
-        }
-
-        .floating-elements {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            pointer-events: none;
-        }
-
-        .floating-element {
-            position: absolute;
-            animation: float 6s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(180deg); }
-        }
-
-        /* Dark mode toggle */
-        .theme-toggle {
-            background: var(--bg-card);
-            border: none;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1rem;
-            color: var(--text-primary);
-            transition: var(--transition);
-        }
-
-        .theme-toggle:hover {
-            background: var(--primary-color);
-        }
-
-        /* Video call interface */
-        .video-call {
-            background: var(--bg-secondary);
-            border-radius: 15px;
-            padding: 2rem;
-            text-align: center;
-            margin-top: 2rem;
-        }
-
-        .video-screen {
-            width: 100%;
-            height: 300px;
-            background: var(--gradient-secondary);
-            border-radius: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 4rem;
-            margin-bottom: 2rem;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .video-screen video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .call-character {
-            position: absolute;
-            bottom: 1rem;
-            left: 1rem;
-            background: rgba(0, 0, 0, 0.5);
-            padding: 0.5rem 1rem;
-            border-radius: 25px;
-            font-weight: bold;
-            z-index: 2;
-        }
-
-        .call-controls {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .call-btn {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            border: none;
-            cursor: pointer;
-            font-size: 1.2rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: var(--transition);
-        }
-
-        .call-btn.end {
-            background: #ff4757;
-            color: white;
-        }
-
-        .call-btn.mute {
-            background: var(--secondary-color);
-            color: white;
-        }
-
-        /* Coin purchase */
-        .coin-packs {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-            margin: 2rem 0;
-        }
-
-        .coin-pack {
-            background: var(--bg-card);
-            border-radius: 15px;
-            padding: 1.5rem;
-            text-align: center;
-            transition: var(--transition);
-            border: 2px solid transparent;
-            cursor: pointer;
-        }
-
-        .coin-pack:hover {
-            border-color: var(--accent-color);
-            transform: translateY(-5px);
-        }
-
-        .coin-pack.active {
-            border-color: var(--primary-color);
-            background: rgba(255, 107, 157, 0.1);
-        }
-
-        .coin-amount {
-            font-size: 2rem;
-            font-weight: bold;
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-        }
-
-        .coin-price {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .best-value {
-            background: var(--accent-color);
-            color: #000;
-            padding: 0.25rem 0.5rem;
-            border-radius: 15px;
-            font-size: 0.8rem;
-            font-weight: bold;
-            margin-bottom: 1rem;
-        }
-
-        /* Notifications */
-        .notification {
-            position: fixed;
-            bottom: 1rem;
-            right: 1rem;
-            background: var(--primary-color);
-            color: white;
-            padding: 1rem 1.5rem;
-            border-radius: 10px;
-            box-shadow: var(--shadow);
-            z-index: 3000;
-            transform: translateX(200%);
-            transition: transform 0.3s ease;
-            max-width: 300px;
-        }
-
-        .notification.show {
-            transform: translateX(0);
-        }
-
-        .notification.success {
-            background: #4cd137;
-        }
-
-        .notification.error {
-            background: #e84118;
-        }
-
-        /* Loading spinner */
-        .spinner {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(255,255,255,.3);
-            border-radius: 50%;
-            border-top-color: #fff;
-            animation: spin 1s ease-in-out infinite;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        /* Cart */
-        .cart-item {
-            display: flex;
-            gap: 1rem;
-            padding: 1rem;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            align-items: center;
-        }
-
-        .cart-item-img {
-            width: 60px;
-            height: 60px;
-            background: var(--gradient-secondary);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-        }
-
-        .cart-item-details {
-            flex: 1;
-        }
-
-        .cart-item-name {
-            font-weight: bold;
-            margin-bottom: 0.25rem;
-        }
-
-        .cart-item-price {
-            color: var(--accent-color);
-            font-weight: bold;
-        }
-
-        .cart-item-remove {
-            background: none;
-            border: none;
-            color: #ff4757;
-            cursor: pointer;
-            font-size: 1.2rem;
-        }
-
-        .cart-total {
-            padding: 1rem;
-            text-align: right;
-            font-size: 1.2rem;
-            font-weight: bold;
-        }
-
-        /* Progress bar */
-        .progress-container {
-            width: 100%;
-            background: var(--bg-secondary);
-            border-radius: 10px;
-            margin: 1rem 0;
-            height: 10px;
-            overflow: hidden;
-        }
-
-        .progress-bar {
-            height: 100%;
-            background: var(--gradient-primary);
-            border-radius: 10px;
-            transition: width 0.5s ease;
-        }
-
-        /* Tooltip */
-        .tooltip {
-            position: relative;
-            display: inline-block;
-        }
-
-        .tooltip .tooltiptext {
-            visibility: hidden;
-            width: 120px;
-            background-color: #555;
-            color: #fff;
-            text-align: center;
-            border-radius: 6px;
-            padding: 5px;
-            position: absolute;
-            z-index: 1;
-            bottom: 125%;
-            left: 50%;
-            margin-left: -60px;
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .tooltip:hover .tooltiptext {
-            visibility: visible;
-            opacity: 1;
-        }
-
-        /* Video call user */
-        .user-video {
-            position: absolute;
-            bottom: 1rem;
-            right: 1rem;
-            width: 120px;
-            height: 90px;
-            background: var(--bg-card);
-            border-radius: 10px;
-            overflow: hidden;
-            z-index: 2;
-            border: 2px solid var(--primary-color);
-        }
-
-        .user-video video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        /* Character response */
-        .character-response {
-            position: absolute;
-            bottom: 1rem;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(0, 0, 0, 0.7);
-            padding: 0.5rem 1rem;
-            border-radius: 25px;
-            max-width: 80%;
-            text-align: center;
-            z-index: 2;
-        }
-           @media (min-width: 768px) {
-           .nav-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 2rem;
-  background-color: #1a1a2e;
-  color: white;
-  border-bottom: 2px solid #e94560;
-  font-family: 'Segoe UI', sans-serif;
-}
-
-.nav-menu {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-.logo {
-  height: 12px;
-  width: 12px;
-}
-                .coin-display {
-                display: none;
-                }
         }
     </style>
 </head>
 <body>
-    <!-- Header -->
-    <header class="header">
-        <nav class="nav-container">
-            <button class="menu-toggle" id="menuToggle">
-                <i class="fas fa-bars"></i>
-            </button>
-            <div class="logo">
-                <i class="fas fa-dragon"></i>
-                <span>AnimeWorld</span>
+    <div class="app-container">
+        <!-- Home Page -->
+        <div id="home" class="page active">
+            <div class="header">
+                <h1>AnimeWorld</h1>
+                <div class="header-icon">&#9881;</div>
             </div>
-            <ul class="nav-menu" id="navMenu">
-                <li class="nav-item" data-section="home">
-                    <i class="fas fa-home"></i>
-                    <span>Home</span>
-                </li>
-                <li class="nav-item" data-section="streaming">
-                    <i class="fas fa-play"></i>
-                    <span>Streaming</span>
-                </li>
-                <li class="nav-item" data-section="chat">
-                    <i class="fas fa-comments"></i>
-                    <span>Chat</span>
-                </li>
-                <li class="nav-item" data-section="ai-calls">
-                    <i class="fas fa-robot"></i>
-                    <span>Video Calls</span>
-                </li>
-                <li class="nav-item" data-section="polls">
-                    <i class="fas fa-poll"></i>
-                    <span>Polls</span>
-                </li>
-                <li class="nav-item" data-section="store">
-                    <i class="fas fa-store"></i>
-                    <span>Store</span>
-                </li>
-                <li class="nav-item" data-section="profile">
-                    <i class="fas fa-user"></i>
-                    <span>Profile</span>
-                </li>
-            </ul>
-            <div class="user-actions">
-                <div class="coin-display" id="coinDisplay">
-                    <i class="fas fa-coins"></i>
-                    <span id="coinAmount">1,250</span>
-                </div>
-                <button class="theme-toggle" id="themeToggle">
-                    <i class="fas fa-moon"></i>
-                </button>
-                <button class="btn btn-primary" id="loginButton" onclick="showModal('loginModal')">
-                    <i class="fas fa-sign-in-alt"></i>
-                    <span>Login</span>
-                </button>
-                <button class="btn btn-secondary" id="logoutButton" style="display: none;" onclick="logout()">
-                    <i class="fas fa-sign-out-alt"></i>
-                    <span>Logout</span>
-                </button>
+            
+            <div class="search-container">
+                <input type="text" class="search-bar" placeholder="Search anime, characters, and more">
             </div>
-        </nav>
-    </header>
-
-    <!-- Notification -->
-    <div class="notification" id="notification"></div>
-
-    <!-- Main Content -->
-    <main class="main-content">
-        <!-- Home Section -->
-        <section id="home" class="section active">
-            <div class="hero">
-                <div class="floating-elements">
-                    <div class="floating-element" style="top: 10%; left: 10%; color: var(--primary-color);">⭐</div>
-                    <div class="floating-element" style="top: 20%; right: 15%; color: var(--secondary-color);">🌸</div>
-                    <div class="floating-element" style="bottom: 30%; left: 20%; color: var(--accent-color);">✨</div>
-                </div>
-                <div class="hero-content">
-                    <h1>Welcome to AnimeWorld</h1>
-                    <p>Your ultimate destination for anime streaming, community, and interactive experiences</p>
-                    <div style="display: flex; gap: 1rem; justify-content: center; margin-top: 2rem; flex-wrap: wrap;">
-                        <button class="btn btn-primary" onclick="showSection('streaming')">
-                            <i class="fas fa-play"></i> Start Watching
-                        </button>
-                        <button class="btn btn-secondary" onclick="showSection('chat')">
-                            <i class="fas fa-comments"></i> Join Community
-                        </button>
-                        <button class="btn btn-primary" onclick="showModal('coinModal')">
-                            <i class="fas fa-coins"></i> Buy Coins
-                        </button>
+            
+            <div class="section">
+                <h2 class="section-title">Featured Anime</h2>
+                <div class="featured-grid">
+                    <div class="anime-card">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='120' viewBox='0 0 200 120'%3E%3Crect width='200' height='120' fill='%23666'/%3E%3Ctext x='100' y='65' text-anchor='middle' fill='white' font-size='12'%3EAttack on Titan%3C/text%3E%3C/svg%3E" alt="Attack on Titan">
+                        <div class="anime-card-info">
+                            <div class="anime-card-title">Attack on Titan</div>
+                            <div class="anime-card-subtitle">Season 4</div>
+                        </div>
+                    </div>
+                    <div class="anime-card">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='120' viewBox='0 0 200 120'%3E%3Crect width='200' height='120' fill='%23666'/%3E%3Ctext x='100' y='65' text-anchor='middle' fill='white' font-size='12'%3EDemon Slayer%3C/text%3E%3C/svg%3E" alt="Demon Slayer">
+                        <div class="anime-card-info">
+                            <div class="anime-card-title">Demon Slayer</div>
+                            <div class="anime-card-subtitle">Season 2</div>
+                        </div>
                     </div>
                 </div>
             </div>
             
-            <div class="container">
-                <div class="grid grid-3">
-                    <div class="card">
-                        <h3><i class="fas fa-play-circle"></i> Free Streaming</h3>
-                        <p>Watch thousands of anime episodes with subtitles and dubs. Track your progress and discover new series.</p>
-                    </div>
-                    <div class="card">
-                        <h3><i class="fas fa-comments"></i> Live Chat</h3>
-                        <p>Connect with fellow anime fans in real-time. Discuss episodes, characters, and theories.</p>
-                    </div>
-                    <div class="card">
-                        <h3><i class="fas fa-robot"></i> AI Character Calls</h3>
-                        <p>Use virtual coins to have video calls with AI versions of your favorite anime characters.</p>
-                    </div>
-                    <div class="card">
-                        <h3><i class="fas fa-poll"></i> Fan Polls</h3>
-                        <p>Vote in community polls about best characters, ships, villains, and upcoming seasons.</p>
-                    </div>
-                    <div class="card">
-                        <h3><i class="fas fa-store"></i> Anime Store</h3>
-                        <p>Shop official and fan-made merchandise including figures, apparel, and collectibles.</p>
-                    </div>
-                    <div class="card">
-                        <h3><i class="fas fa-user"></i> Profile System</h3>
-                        <p>Track your watching history, manage your collection, and customize your anime profile.</p>
-                    </div>
+            <div class="section">
+                <h2 class="section-title">Quick Access</h2>
+                <div class="quick-access">
+                    <button class="quick-btn active" data-nav="stream">
+                        <div class="quick-btn-icon"></div>
+                        <span class="quick-btn-text">Stream</span>
+                    </button>
+                    <button class="quick-btn" data-nav="call">
+                        <div class="quick-btn-icon"></div>
+                        <span class="quick-btn-text">Call</span>
+                    </button>
+                    <button class="quick-btn" data-nav="messages">
+                        <div class="quick-btn-icon"></div>
+                        <span class="quick-btn-text">Chat</span>
+                    </button>
+                    <button class="quick-btn" data-nav="shop">
+                        <div class="quick-btn-icon"></div>
+                        <span class="quick-btn-text">Shop</span>
+                    </button>
+                    <button class="quick-btn" data-nav="profile">
+                        <div class="quick-btn-icon"></div>
+                        <span class="quick-btn-text">Coins</span>
+                    </button>
                 </div>
             </div>
-        </section>
-
-        <!-- Streaming Section -->
-        <section id="streaming" class="section">
-            <div class="container">
-                <h2><i class="fas fa-play"></i> Anime Streaming</h2>
-                <div class="search-filters">
-                    <input type="text" class="search-input" placeholder="Search anime..." id="animeSearch">
-                    <select class="filter-select" id="genreFilter">
-                        <option value="">All Genres</option>
-                        <option value="action">Action</option>
-                        <option value="romance">Romance</option>
-                        <option value="comedy">Comedy</option>
-                        <option value="drama">Drama</option>
-                        <option value="fantasy">Fantasy</option>
-                        <option value="sci-fi">Sci-Fi</option>
-                    </select>
-                    <select class="filter-select" id="typeFilter">
-                        <option value="">All Types</option>
-                        <option value="sub">Subbed</option>
-                        <option value="dub">Dubbed</option>
-                    </select>
-                    <select class="filter-select" id="statusFilter">
-                        <option value="">All Status</option>
-                        <option value="ongoing">Ongoing</option>
-                        <option value="completed">Completed</option>
-                    </select>
-                </div>
-                
-                <div class="grid grid-4" id="animeGrid">
-                    <!-- Anime cards will be populated here -->
-                </div>
-            </div>
-        </section>
-
-        <!-- Chat Section -->
-        <section id="chat" class="section">
-            <div class="container">
-                <h2><i class="fas fa-comments"></i> Community Chat</h2>
-                <div class="grid grid-2">
-                    <div class="chat-container">
-                        <div class="chat-header">
-                            <span>General Discussion</span>
-                            <span class="online-count">234 online</span>
-                        </div>
-                        <div class="chat-messages" id="chatMessages">
-                            <div class="message other">
-                                <div class="message-sender">OtakuMaster</div>
-                                Just finished Attack on Titan! 🔥
-                                <div class="message-time">10:42 AM</div>
-                            </div>
-                            <div class="message other">
-                                <div class="message-sender">AnimeQueen</div>
-                                The ending was amazing!
-                                <div class="message-time">10:43 AM</div>
-                            </div>
-                            <div class="message ai">
-                                <div class="message-sender">AI Assistant</div>
-                                Welcome to AnimeWorld chat! Type /help for commands.
-                                <div class="message-time">10:44 AM</div>
-                            </div>
-                            <div class="message user">
-                                <div class="message-sender">You</div>
-                                Currently watching Demon Slayer
-                                <div class="message-time">10:45 AM</div>
-                            </div>
-                        </div>
-                        <div class="chat-input-container">
-                            <input type="text" class="chat-input" placeholder="Type your message..." id="chatInput" onkeypress="handleChatInput(event)">
-                            <button class="btn btn-primary" onclick="sendMessage()">
-                                <i class="fas fa-paper-plane"></i>
-                            </button>
+            
+            <div class="section">
+                <h2 class="section-title">New Arrivals</h2>
+                <div class="new-arrivals-grid">
+                    <div class="new-arrival-card">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='120' viewBox='0 0 200 120'%3E%3Crect width='200' height='120' fill='%23ff6b35'/%3E%3Ctext x='100' y='65' text-anchor='middle' fill='white' font-size='12'%3ENaruto%3C/text%3E%3C/svg%3E" alt="Naruto">
+                        <div class="new-arrival-info">
+                            <div class="new-arrival-title">Naruto Shippuden</div>
+                            <div class="new-arrival-genre">Action, Adventure</div>
                         </div>
                     </div>
-                    
-                    <div class="card">
-                        <h3><i class="fas fa-door-open"></i> Chat Rooms</h3>
-                        <div style="display: flex; flex-direction: column; gap: 1rem;">
-                            <div class="nav-item" style="text-align: center;" onclick="changeChatRoom('general')">
-                                <i class="fas fa-comments"></i> General Discussion (234)
-                            </div>
-                            <div class="nav-item" style="text-align: center;" onclick="changeChatRoom('releases')">
-                                <i class="fas fa-film"></i> New Releases (89)
-                            </div>
-                            <div class="nav-item" style="text-align: center;" onclick="changeChatRoom('manga')">
-                                <i class="fas fa-book"></i> Manga Discussion (156)
-                            </div>
-                            <div class="nav-item" style="text-align: center;" onclick="changeChatRoom('art')">
-                                <i class="fas fa-paint-brush"></i> Fan Art Sharing (67)
-                            </div>
-                            <div class="nav-item" style="text-align: center;" onclick="changeChatRoom('recommendations')">
-                                <i class="fas fa-star"></i> Recommendations (123)
-                            </div>
+                    <div class="new-arrival-card">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='120' viewBox='0 0 200 120'%3E%3Crect width='200' height='120' fill='%2328a745'/%3E%3Ctext x='100' y='65' text-anchor='middle' fill='white' font-size='12'%3EMy Hero Academia%3C/text%3E%3C/svg%3E" alt="My Hero Academia">
+                        <div class="new-arrival-info">
+                            <div class="new-arrival-title">My Hero Academia</div>
+                            <div class="new-arrival-genre">Action, Superhero</div>
                         </div>
-                        <h3 style="margin-top: 2rem;"><i class="fas fa-robot"></i> AI Characters</h3>
-                        <div style="display: flex; flex-direction: column; gap: 1rem;">
-                            <div class="nav-item" style="text-align: center;" onclick="startAIChat('naruto')">
-                                <i class="fas fa-user-ninja"></i> Chat with Naruto
-                            </div>
-                            <div class="nav-item" style="text-align: center;" onclick="startAIChat('sasuke')">
-                                <i class="fas fa-eye"></i> Chat with Sasuke
-                            </div>
-                            <div class="nav-item" style="text-align: center;" onclick="startAIChat('sakura')">
-                                <i class="fas fa-heart"></i> Chat with Sakura
-                            </div>
+                    </div>
+                    <div class="new-arrival-card">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='120' viewBox='0 0 200 120'%3E%3Crect width='200' height='120' fill='%23dc3545'/%3E%3Ctext x='100' y='65' text-anchor='middle' fill='white' font-size='12'%3ETokyo Ghoul%3C/text%3E%3C/svg%3E" alt="Tokyo Ghoul">
+                        <div class="new-arrival-info">
+                            <div class="new-arrival-title">Tokyo Ghoul</div>
+                            <div class="new-arrival-genre">Horror, Supernatural</div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
-
-        <!-- AI Character Calls -->
-        <section id="ai-calls" class="section">
-            <div class="container">
-                <h2><i class="fas fa-robot"></i> AI Character Video Calls</h2>
-                <p style="margin-bottom: 2rem; text-align: center; color: var(--text-secondary);">
-                    Spend your virtual coins to have video calls with AI versions of your favorite anime characters.
-                </p>
-                
-                <div class="character-grid">
-                    <div class="character-card" onclick="startCall('naruto')">
-                        <div class="character-avatar">
-                            <i class="fas fa-user-ninja"></i>
-                        </div>
-                        <div class="character-name">Naruto Uzumaki</div>
-                        <div class="character-cost"><i class="fas fa-coins"></i> 100/min</div>
-                    </div>
-                    <div class="character-card" onclick="startCall('sasuke')">
-                        <div class="character-avatar">
-                            <i class="fas fa-eye"></i>
-                        </div>
-                        <div class="character-name">Sasuke Uchiha</div>
-                        <div class="character-cost"><i class="fas fa-coins"></i> 120/min</div>
-                    </div>
-                    <div class="character-card" onclick="startCall('sakura')">
-                        <div class="character-avatar">
-                            <i class="fas fa-heart"></i>
-                        </div>
-                        <div class="character-name">Sakura Haruno</div>
-                        <div class="character-cost"><i class="fas fa-coins"></i> 90/min</div>
-                    </div>
-                    <div class="character-card" onclick="startCall('goku')">
-                        <div class="character-avatar">
-                            <i class="fas fa-bolt"></i>
-                        </div>
-                        <div class="character-name">Goku</div>
-                        <div class="character-cost"><i class="fas fa-coins"></i> 150/min</div>
-                    </div>
-                    <div class="character-card" onclick="startCall('vegeta')">
-                        <div class="character-avatar">
-                            <i class="fas fa-crown"></i>
-                        </div>
-                        <div class="character-name">Vegeta</div>
-                        <div class="character-cost"><i class="fas fa-coins"></i> 140/min</div>
-                    </div>
-                    <div class="character-card" onclick="startCall('luffy')">
-                        <div class="character-avatar">
-                            <i class="fas fa-hat-cowboy"></i>
-                        </div>
-                        <div class="character-name">Monkey D. Luffy</div>
-                        <div class="character-cost"><i class="fas fa-coins"></i> 130/min</div>
-                    </div>
-                    <div class="character-card" onclick="startCall('zoro')">
-                        <div class="character-avatar">
-                            <i class="fas fa-swords"></i>
-                        </div>
-                        <div class="character-name">Roronoa Zoro</div>
-                        <div class="character-cost"><i class="fas fa-coins"></i> 110/min</div>
-                    </div>
-                    <div class="character-card" onclick="startCall('nami')">
-                        <div class="character-avatar">
-                            <i class="fas fa-map-marked-alt"></i>
-                        </div>
-                        <div class="character-name">Nami</div>
-                        <div class="character-cost"><i class="fas fa-coins"></i> 95/min</div>
-                    </div>
-                </div>
-                
-                <div class="video-call" id="videoCallContainer" style="display: none;">
-                    <div class="video-screen" id="videoScreen">
-                        <div class="call-character" id="callCharacter">Calling...</div>
-                        <div class="user-video" id="userVideoContainer" style="display: none;">
-                            <video id="userVideo" autoplay muted></video>
-                        </div>
-                        <div class="character-response" id="characterResponse"></div>
-                    </div>
-                    <div class="call-controls">
-                        <button class="call-btn mute" id="muteButton" onclick="toggleMute()">
-                            <i class="fas fa-microphone"></i>
-                        </button>
-                        <button class="call-btn end" onclick="endCall()">
-                            <i class="fas fa-phone-slash"></i>
-                        </button>
-                    </div>
-                    <div style="text-align: center; margin-top: 1rem;">
-                        <span id="callTimer">00:00</span> • <span id="callCost">Cost: 0 coins</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Polls Section -->
-        <section id="polls" class="section">
-            <div class="container">
-                <h2><i class="fas fa-poll"></i> Community Polls</h2>
-                <div class="grid grid-2">
-                    <div class="poll-card">
-                        <div class="poll-question">Who is your favorite Attack on Titan character?</div>
-                        <div class="poll-option">
-                            <input type="radio" name="aot-poll" id="aot-eren" onclick="votePoll('aot-poll', 'Eren')">
-                            <label for="aot-eren">Eren Yeager</label>
-                        </div>
-                        <div class="poll-option">
-                            <input type="radio" name="aot-poll" id="aot-mikasa" onclick="votePoll('aot-poll', 'Mikasa')">
-                            <label for="aot-mikasa">Mikasa Ackerman</label>
-                        </div>
-                        <div class="poll-option">
-                            <input type="radio" name="aot-poll" id="aot-levi" onclick="votePoll('aot-poll', 'Levi')">
-                            <label for="aot-levi">Levi Ackerman</label>
-                        </div>
-                        <div class="poll-option">
-                            <input type="radio" name="aot-poll" id="aot-annie" onclick="votePoll('aot-poll', 'Annie')">
-                            <label for="aot-annie">Annie Leonhart</label>
-                        </div>
-                        <div class="poll-results" id="aot-poll-results" style="display: none;">
-                            <div class="result-bar">
-                                <div class="result-fill" id="aot-eren-result" style="width: 0%">0%</div>
-                            </div>
-                            <div class="result-bar">
-                                <div class="result-fill" id="aot-mikasa-result" style="width: 0%">0%</div>
-                            </div>
-                            <div class="result-bar">
-                                <div class="result-fill" id="aot-levi-result" style="width: 0%">0%</div>
-                            </div>
-                            <div class="result-bar">
-                                <div class="result-fill" id="aot-annie-result" style="width: 0%">0%</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="poll-card">
-                        <div class="poll-question">Which anime had the best opening theme in 2023?</div>
-                        <div class="poll-option">
-                            <input type="radio" name="op-poll" id="op-ds" onclick="votePoll('op-poll', 'Demon Slayer')">
-                            <label for="op-ds">Demon Slayer: Swordsmith Village Arc</label>
-                        </div>
-                        <div class="poll-option">
-                            <input type="radio" name="op-poll" id="op-jjk" onclick="votePoll('op-poll', 'Jujutsu Kaisen')">
-                            <label for="op-jjk">Jujutsu Kaisen Season 2</label>
-                        </div>
-                        <div class="poll-option">
-                            <input type="radio" name="op-poll" id="op-csm" onclick="votePoll('op-poll', 'Chainsaw Man')">
-                            <label for="op-csm">Chainsaw Man</label>
-                        </div>
-                        <div class="poll-option">
-                            <input type="radio" name="op-poll" id="op-spy" onclick="votePoll('op-poll', 'Spy x Family')">
-                            <label for="op-spy">Spy x Family Part 2</label>
-                        </div>
-                        <div class="poll-results" id="op-poll-results" style="display: none;">
-                            <div class="result-bar">
-                                <div class="result-fill" id="op-ds-result" style="width: 0%">0%</div>
-                            </div>
-                            <div class="result-bar">
-                                <div class="result-fill" id="op-jjk-result" style="width: 0%">0%</div>
-                            </div>
-                            <div class="result-bar">
-                                <div class="result-fill" id="op-csm-result" style="width: 0%">0%</div>
-                            </div>
-                            <div class="result-bar">
-                                <div class="result-fill" id="op-spy-result" style="width: 0%">0%</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Store Section -->
-        <section id="store" class="section">
-            <div class="container">
-                <h2><i class="fas fa-store"></i> Anime Store</h2>
-                <div class="search-filters">
-                    <input type="text" class="search-input" placeholder="Search products..." id="storeSearch">
-                    <select class="filter-select" id="categoryFilter">
-                        <option value="">All Categories</option>
-                        <option value="figures">Figures</option>
-                        <option value="clothing">Clothing</option>
-                        <option value="posters">Posters</option>
-                        <option value="accessories">Accessories</option>
-                    </select>
-                    <select class="filter-select" id="priceFilter">
-                        <option value="">All Prices</option>
-                        <option value="0-50">$0 - $50</option>
-                        <option value="50-100">$50 - $100</option>
-                        <option value="100+">$100+</option>
-                    </select>
-                </div>
-                
-                <div class="grid grid-3" id="storeGrid">
-                    <div class="product-card">
-                        <div class="product-image">
-                            <i class="fas fa-user-ninja"></i>
-                            <div class="product-badge">New</div>
-                        </div>
-                        <div class="product-info">
-                            <div class="product-name">Naruto Figurine - Limited Edition</div>
-                            <div class="product-price">
-                                <span>$49.99</span>
-                                <span class="original">$69.99</span>
-                            </div>
-                            <div class="product-actions">
-                                <button class="btn btn-primary btn-sm" onclick="addToCart('Naruto Figurine', 49.99)">
-                                    <i class="fas fa-cart-plus"></i> Add to Cart
-                                </button>
-                                <button class="btn btn-secondary btn-sm" onclick="showProductModal('Naruto Figurine')">
-                                    <i class="fas fa-info-circle"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="product-card">
-                        <div class="product-image">
-                            <i class="fas fa-dragon"></i>
-                        </div>
-                        <div class="product-info">
-                            <div class="product-name">Dragon Ball Z Hoodie</div>
-                            <div class="product-price">$39.99</div>
-                            <div class="product-actions">
-                                <button class="btn btn-primary btn-sm" onclick="addToCart('Dragon Ball Z Hoodie', 39.99)">
-                                    <i class="fas fa-cart-plus"></i> Add to Cart
-                                </button>
-                                <button class="btn btn-secondary btn-sm" onclick="showProductModal('Dragon Ball Z Hoodie')">
-                                    <i class="fas fa-info-circle"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="product-card">
-                        <div class="product-image">
-                            <i class="fas fa-swords"></i>
-                            <div class="product-badge">Best Seller</div>
-                        </div>
-                        <div class="product-info">
-                            <div class="product-name">Demon Slayer Poster Set</div>
-                            <div class="product-price">$24.99</div>
-                            <div class="product-actions">
-                                <button class="btn btn-primary btn-sm" onclick="addToCart('Demon Slayer Poster Set', 24.99)">
-                                    <i class="fas fa-cart-plus"></i> Add to Cart
-                                </button>
-                                <button class="btn btn-secondary btn-sm" onclick="showProductModal('Demon Slayer Poster Set')">
-                                    <i class="fas fa-info-circle"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="product-card">
-                        <div class="product-image">
-                            <i class="fas fa-hat-cowboy"></i>
-                        </div>
-                        <div class="product-info">
-                            <div class="product-name">One Piece Straw Hat Replica</div>
-                            <div class="product-price">$59.99</div>
-                            <div class="product-actions">
-                                <button class="btn btn-primary btn-sm" onclick="addToCart('One Piece Straw Hat', 59.99)">
-                                    <i class="fas fa-cart-plus"></i> Add to Cart
-                                </button>
-                                <button class="btn btn-secondary btn-sm" onclick="showProductModal('One Piece Straw Hat')">
-                                    <i class="fas fa-info-circle"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="product-card">
-                        <div class="product-image">
-                            <i class="fas fa-ghost"></i>
-                        </div>
-                        <div class="product-info">
-                            <div class="product-name">Jujutsu Kaisen Keychain Set</div>
-                            <div class="product-price">$14.99</div>
-                            <div class="product-actions">
-                                <button class="btn btn-primary btn-sm" onclick="addToCart('Jujutsu Kaisen Keychain Set', 14.99)">
-                                    <i class="fas fa-cart-plus"></i> Add to Cart
-                                </button>
-                                <button class="btn btn-secondary btn-sm" onclick="showProductModal('Jujutsu Kaisen Keychain Set')">
-                                    <i class="fas fa-info-circle"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="product-card">
-                        <div class="product-image">
-                            <i class="fas fa-bolt"></i>
-                            <div class="product-badge">Sale</div>
-                        </div>
-                        <div class="product-info">
-                            <div class="product-name">My Hero Academia T-Shirt</div>
-                            <div class="product-price">
-                                <span>$19.99</span>
-                                <span class="original">$29.99</span>
-                            </div>
-                            <div class="product-actions">
-                                <button class="btn btn-primary btn-sm" onclick="addToCart('My Hero Academia T-Shirt', 19.99)">
-                                    <i class="fas fa-cart-plus"></i> Add to Cart
-                                </button>
-                                <button class="btn btn-secondary btn-sm" onclick="showProductModal('My Hero Academia T-Shirt')">
-                                    <i class="fas fa-info-circle"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Profile Section -->
-        <section id="profile" class="section">
-            <div class="container">
-                <h2><i class="fas fa-user"></i> Your Profile</h2>
-                <div class="grid grid-2">
-                    <div class="card">
-                        <h3><i class="fas fa-user-circle"></i> Account Information</h3>
-                        <div class="form-group">
-                            <label class="form-label">Username</label>
-                            <input type="text" class="form-input" id="profileUsername" value="AnimeFan123" readonly>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Email</label>
-                            <input type="email" class="form-input" id="profileEmail" value="animefan@example.com">
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Favorite Anime</label>
-                            <input type="text" class="form-input" id="favoriteAnime" placeholder="Enter your favorite anime">
-                        </div>
-                        <button class="btn btn-primary" style="width: 100%;" onclick="updateProfile()">
-                            Update Profile
-                        </button>
-                    </div>
-                    
-                    <div class="card">
-                        <h3><i class="fas fa-history"></i> Watching History</h3>
-                        <div style="max-height: 300px; overflow-y: auto;" id="watchingHistory">
-                            <!-- Watching history will be populated here -->
-                        </div>
-                    </div>
-                    
-                    <div class="card">
-                        <h3><i class="fas fa-shopping-cart"></i> Your Cart</h3>
-                        <div id="cartItems" style="max-height: 200px; overflow-y: auto;">
-                            <!-- Cart items will be populated here -->
-                        </div>
-                        <div class="cart-total" id="cartTotal">
-                            Total: $0.00
-                        </div>
-                        <button class="btn btn-primary" style="width: 100%;" onclick="showModal('checkoutModal')">Proceed to Checkout</button>
-                    </div>
-                    
-                    <div class="card">
-                        <h3><i class="fas fa-trophy"></i> Achievements</h3>
-                        <div style="display: flex; flex-wrap: wrap; gap: 1rem;" id="achievements">
-                            <!-- Achievements will be populated here -->
-                        </div>
-                        <div class="progress-container">
-                            <div class="progress-bar" id="levelProgress" style="width: 45%;"></div>
-                        </div>
-                        <div style="text-align: center;" id="levelText">Level 3 (45%)</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- Modals -->
-    <div class="modal" id="loginModal">
-        <div class="modal-content">
-            <button class="modal-close" onclick="hideModal('loginModal')">&times;</button>
-            <h3 class="modal-title">Login to AnimeWorld</h3>
-            <div class="form-group">
-                <label class="form-label">Username or Email</label>
-                <input type="text" class="form-input" id="loginUsername">
-            </div>
-            <div class="form-group">
-                <label class="form-label">Password</label>
-                <input type="password" class="form-input" id="loginPassword">
-            </div>
-            <button class="btn btn-primary" style="width: 100%;" onclick="login()">Login</button>
-            <div style="text-align: center; margin-top: 1rem;">
-                Don't have an account? <a href="#" onclick="showModal('registerModal')" style="color: var(--primary-color);">Register</a>
             </div>
         </div>
-    </div>
 
-    <div class="modal" id="registerModal">
-        <div class="modal-content">
-            <button class="modal-close" onclick="hideModal('registerModal')">&times;</button>
-            <h3 class="modal-title">Create Account</h3>
-            <div class="form-group">
-                <label class="form-label">Username</label>
-                <input type="text" class="form-input" id="registerUsername">
+        <!-- Messages Page -->
+        <div id="messages" class="page">
+            <div class="message-header">
+                <h1>Messages</h1>
+                <div style="font-size: 20px; cursor: pointer;">+</div>
             </div>
-            <div class="form-group">
-                <label class="form-label">Email</label>
-                <input type="email" class="form-input" id="registerEmail">
+            
+            <div class="message-tabs">
+                <div class="message-tab active">All</div>
+                <div class="message-tab">Unread</div>
+                <div class="message-tab">Groups</div>
             </div>
-            <div class="form-group">
-                <label class="form-label">Password</label>
-                <input type="password" class="form-input" id="registerPassword">
-            </div>
-            <div class="form-group">
-                <label class="form-label">Confirm Password</label>
-                <input type="password" class="form-input" id="registerConfirmPassword">
-            </div>
-            <button class="btn btn-primary" style="width: 100%;" onclick="register()">Register</button>
-            <div style="text-align: center; margin-top: 1rem;">
-                Already have an account? <a href="#" onclick="showModal('loginModal')" style="color: var(--primary-color);">Login</a>
+            
+            <div class="message-list">
+                <div class="message-item">
+                    <div class="message-avatar"></div>
+                    <div class="message-content">
+                        <h4>Anime Fan Club</h4>
+                        <p>Hey, did you see the new episode?</p>
+                    </div>
+                </div>
+                <div class="message-item">
+                    <div class="message-avatar"></div>
+                    <div class="message-content">
+                        <h4>Anime Enthusiasts</h4>
+                        <p>I'm so excited for the next season!</p>
+                    </div>
+                </div>
+                <div class="message-item">
+                    <div class="message-avatar"></div>
+                    <div class="message-content">
+                        <h4>Anime Lovers</h4>
+                        <p>Let's discuss our favorite moments!</p>
+                    </div>
+                </div>
+                <div class="message-item">
+                    <div class="message-avatar"></div>
+                    <div class="message-content">
+                        <h4>Anime Community</h4>
+                        <p>I can't wait to see what happens next!</p>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="modal" id="coinModal">
-        <div class="modal-content">
-            <button class="modal-close" onclick="hideModal('coinModal')">&times;</button>
-            <h3 class="modal-title">Buy Virtual Coins</h3>
-            <p style="text-align: center; margin-bottom: 2rem; color: var(--text-secondary);">
-                Use coins for AI character calls and exclusive content
-            </p>
+        <!-- Shop Page -->
+        <div id="shop" class="page">
+            <div class="header">
+                <h1>AnimeWorld</h1>
+                <div class="header-icon">🛒</div>
+            </div>
             
-            <div class="coin-packs">
-                <div class="coin-pack" onclick="selectCoinPack('starter')">
-                    <h3>Starter Pack</h3>
-                    <div class="coin-amount">
-                        <i class="fas fa-coins"></i> 500
+            <div class="search-container">
+                <input type="text" class="search-bar" placeholder="Search for anime merch">
+            </div>
+            
+            <div class="shop-tabs">
+                <div class="shop-tab active">Figures</div>
+                <div class="shop-tab">Apparel</div>
+                <div class="shop-tab">Accessories</div>
+                <div class="shop-tab">Posters</div>
+            </div>
+            
+            <div class="section">
+                <h2 class="section-title">Featured Items</h2>
+                <div class="featured-items">
+                    <div class="shop-item">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='120' viewBox='0 0 200 120'%3E%3Crect width='200' height='120' fill='%23ffc107'/%3E%3Ctext x='100' y='65' text-anchor='middle' fill='white' font-size='10'%3ELimited Edition%3C/text%3E%3C/svg%3E" alt="Limited Edition">
+                        <div class="shop-item-info">
+                            <div class="shop-item-title">Limited Edition Figure</div>
+                        </div>
                     </div>
-                    <div class="coin-price">$4.99</div>
+                    <div class="shop-item">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='120' viewBox='0 0 200 120'%3E%3Crect width='200' height='120' fill='%236f42c1'/%3E%3Ctext x='100' y='65' text-anchor='middle' fill='white' font-size='10'%3EExclusive Anime%3C/text%3E%3C/svg%3E" alt="Exclusive">
+                        <div class="shop-item-info">
+                            <div class="shop-item-title">Exclusive Anime</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2 class="section-title">New Arrivals</h2>
+                <div class="featured-items">
+                    <div class="shop-item">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='120' viewBox='0 0 200 120'%3E%3Crect width='200' height='120' fill='%23ff6b35'/%3E%3Ctext x='100' y='65' text-anchor='middle' fill='white' font-size='10'%3ENaruto Figure%3C/text%3E%3C/svg%3E" alt="Naruto Figure">
+                        <div class="shop-item-info">
+                            <div class="shop-item-title">Naruto Shippuden</div>
+                            <div class="shop-item-name">Figure</div>
+                        </div>
+                    </div>
+                    <div class="shop-item">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='120' viewBox='0 0 200 120'%3E%3Crect width='200' height='120' fill='%23666'/%3E%3Ctext x='100' y='65' text-anchor='middle' fill='white' font-size='10'%3EAOT Hoodie%3C/text%3E%3C/svg%3E" alt="AOT Hoodie">
+                        <div class="shop-item-info">
+                            <div class="shop-item-title">Attack on Titan Hoodie</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Call Page -->
+        <div id="call" class="page">
+            <div class="header">
+                <button class="back-btn" onclick="showPage('home')">←</button>
+                <h1>Call an Anime Character</h1>
+            </div>
+            
+            <div class="section">
+                <h2 class="section-title">Choose Your Character</h2>
+                <div class="character-selection">
+                    <div class="character-option" onclick="selectCharacter(this)">
+                        <div class="character-avatar"></div>
+                        <div class="character-name">Aiko</div>
+                    </div>
+                    <div class="character-option" onclick="selectCharacter(this)">
+                        <div class="character-avatar"></div>
+                        <div class="character-name">Kenji</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2 class="section-title">Schedule Your Call</h2>
+                <div class="call-settings">
+                    <div class="setting-group">
+                        <label class="setting-label">Select Date</label>
+                        <input type="date" class="setting-input">
+                    </div>
+                    <div class="setting-group">
+                        <label class="setting-label">Select Time</label>
+                        <input type="time" class="setting-input">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2 class="section-title">Enhance Your Call</h2>
+                <div class="setting-checkbox">
+                    <div class="checkbox" onclick="toggleCheckbox(this)"></div>
+                    <span>Enable Voice Modulation</span>
+                </div>
+                <div class="setting-checkbox">
+                    <div class="checkbox" onclick="toggleCheckbox(this)"></div>
+                    <span>Add Background Music</span>
+                </div>
+            </div>
+            
+            <div class="section">
+                <button class="start-call-btn">Start Call</button>
+            </div>
+        </div>
+
+        <!-- Profile/Coins Page -->
+        <div id="profile" class="page">
+            <div class="header">
+                <button class="back-btn" onclick="showPage('home')">←</button>
+                <h1>AnimeCoins</h1>
+            </div>
+            
+            <div class="profile-header">
+                <div class="profile-avatar"></div>
+                <div class="profile-name">Alex</div>
+                <div class="profile-coins">1,200 AnimeCoins</div>
+            </div>
+            
+            <div class="coins-section">
+                <h2 class="section-title">Purchase AnimeCoins</h2>
+                <div class="coins-grid">
+                    <div class="coin-package">
+                        <div class="coin-amount">500 Coins</div>
+                    </div>
+                    <div class="coin-package">
+                        <div class="coin-amount">1,000 Coins</div>
+                    </div>
+                    <div class="coin-package">
+                        <div class="coin-amount">2,000 Coins</div>
+                    </div>
+                    <div class="coin-package">
+                        <div class="coin-amount">5,000 Coins</div>
+                    </div>
                 </div>
                 
-                <div class="coin-pack" onclick="selectCoinPack('regular')">
-                    <h3>Regular Pack</h3>
-                    <div class="coin-amount">
-                        <i class="fas fa-coins"></i> 1,200
-                    </div>
-                    <div class="coin-price">$9.99</div>
-                </div>
+                <button class="purchase-btn">Purchase</button>
                 
-                <div class="coin-pack" onclick="selectCoinPack('premium')">
-                    <h3>Premium Pack</h3>
-                    <div class="best-value">Best Value</div>
-                    <div class="coin-amount">
-                        <i class="fas fa-coins"></i> 3,000
+                <h2 class="section-title">Transaction History</h2>
+                <div class="transaction-history">
+                    <div class="transaction-item">
+                        <div class="transaction-info">
+                            <h4>500 AnimeCoins</h4>
+                            <p>Purchased</p>
+                        </div>
+                        <div class="transaction-amount positive">+500</div>
                     </div>
-                    <div class="coin-price">$19.99</div>
+                    <div class="transaction-item">
+                        <div class="transaction-info">
+                            <h4>100 AnimeCoins</h4>
+                            <p>Redeemed</p>
+                        </div>
+                        <div class="transaction-amount negative">-100</div>
+                    </div>
+                    <div class="transaction-item">
+                        <div class="transaction-info">
+                            <h4>1,000 AnimeCoins</h4>
+                            <p>Purchased</p>
+                        </div>
+                        <div class="transaction-amount positive">+1,000</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stream Page -->
+        <div id="stream" class="page">
+            <div class="header">
+                <h1>Stream</h1>
+                <div class="header-icon">📺</div>
+            </div>
+            
+            <div class="search-container">
+                <input type="text" class="search-bar" placeholder="Search anime to stream">
+            </div>
+            
+            <div class="section">
+                <h2 class="section-title">Continue Watching</h2>
+                <div class="featured-grid">
+                    <div class="anime-card">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='120' viewBox='0 0 200 120'%3E%3Crect width='200' height='120' fill='%23666'/%3E%3Ctext x='100' y='55' text-anchor='middle' fill='white' font-size='10'%3EAttack on Titan%3C/text%3E%3Ctext x='100' y='75' text-anchor='middle' fill='%23ccc' font-size='8'%3EEp 15 - 23:45%3C/text%3E%3C/svg%3E" alt="Attack on Titan">
+                        <div class="anime-card-info">
+                            <div class="anime-card-title">Attack on Titan</div>
+                            <div class="anime-card-subtitle">S4 E15 • 23:45 remaining</div>
+                        </div>
+                    </div>
+                    <div class="anime-card">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='120' viewBox='0 0 200 120'%3E%3Crect width='200' height='120' fill='%23dc3545'/%3E%3Ctext x='100' y='55' text-anchor='middle' fill='white' font-size='10'%3EDemon Slayer%3C/text%3E%3Ctext x='100' y='75' text-anchor='middle' fill='%23ccc' font-size='8'%3EEp 8 - 12:30%3C/text%3E%3C/svg%3E" alt="Demon Slayer">
+                        <div class="anime-card-info">
+                            <div class="anime-card-title">Demon Slayer</div>
+                            <div class="anime-card-subtitle">S2 E8 • 12:30 remaining</div>
+                        </div>
+                    </div>
                 </div>
             </div>
             
-            <button class="btn btn-primary" style="width: 100%; margin-top: 1rem;" onclick="purchaseCoins()">
-                Purchase Now
-            </button>
+            <div class="section">
+                <h2 class="section-title">Trending Now</h2>
+                <div class="new-arrivals-grid">
+                    <div class="new-arrival-card">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='120' viewBox='0 0 200 120'%3E%3Crect width='200' height='120' fill='%23007bff'/%3E%3Ctext x='100' y='65' text-anchor='middle' fill='white' font-size='12'%3EOne Piece%3C/text%3E%3C/svg%3E" alt="One Piece">
+                        <div class="new-arrival-info">
+                            <div class="new-arrival-title">One Piece</div>
+                            <div class="new-arrival-genre">Adventure, Comedy</div>
+                        </div>
+                    </div>
+                    <div class="new-arrival-card">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='120' viewBox='0 0 200 120'%3E%3Crect width='200' height='120' fill='%23ffc107'/%3E%3Ctext x='100' y='65' text-anchor='middle' fill='white' font-size='12'%3EJujutsu Kaisen%3C/text%3E%3C/svg%3E" alt="Jujutsu Kaisen">
+                        <div class="new-arrival-info">
+                            <div class="new-arrival-title">Jujutsu Kaisen</div>
+                            <div class="new-arrival-genre">Action, Supernatural</div>
+                        </div>
+                    </div>
+                    <div class="new-arrival-card">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='120' viewBox='0 0 200 120'%3E%3Crect width='200' height='120' fill='%236f42c1'/%3E%3Ctext x='100' y='65' text-anchor='middle' fill='white' font-size='12'%3EMy Hero Academia%3C/text%3E%3C/svg%3E" alt="My Hero Academia">
+                        <div class="new-arrival-info">
+                            <div class="new-arrival-title">My Hero Academia</div>
+                            <div class="new-arrival-genre">Action, School</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
 
-    <div class="modal" id="productModal">
-        <div class="modal-content">
-            <button class="modal-close" onclick="hideModal('productModal')">&times;</button>
-            <h3 class="modal-title" id="productModalTitle">Product Details</h3>
-            <div style="text-align: center; margin-bottom: 1rem;">
-                <div style="width: 100%; height: 200px; background: var(--gradient-secondary); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 3rem; margin-bottom: 1rem;"></div>
+        <!-- Bottom Navigation -->
+        <div class="bottom-nav">
+            <div class="nav-item active" data-page="home">
+                <div class="nav-icon"></div>
+                <span>Home</span>
             </div>
-            <p id="productModalDescription" style="margin-bottom: 1.5rem;">
-                This is a detailed description of the product. It includes information about materials, dimensions, and other important details that customers might want to know before making a purchase.
-            </p>
-            <div class="product-price" style="justify-content: center; font-size: 1.5rem;" id="productModalPrice">
-                $0.00
+            <div class="nav-item" data-page="stream">
+                <div class="nav-icon"></div>
+                <span>Stream</span>
             </div>
-            <button class="btn btn-primary" style="width: 100%;" onclick="addToCartFromModal()">
-                <i class="fas fa-cart-plus"></i> Add to Cart
-            </button>
-        </div>
-    </div>
-
-    <div class="modal" id="checkoutModal">
-        <div class="modal-content">
-            <button class="modal-close" onclick="hideModal('checkoutModal')">&times;</button>
-            <h3 class="modal-title">Checkout</h3>
-            <div id="checkoutItems" style="max-height: 200px; overflow-y: auto; margin-bottom: 1rem;">
-                <!-- Checkout items will be populated here -->
+            <div class="nav-item" data-page="shop">
+                <div class="nav-icon"></div>
+                <span>Shop</span>
             </div>
-            <div style="display: flex; justify-content: space-between; margin-bottom: 1.5rem;">
-                <span>Total:</span>
-                <span id="checkoutTotal">$0.00</span>
+            <div class="nav-item" data-page="messages">
+                <div class="nav-icon"></div>
+                <span>Messages</span>
             </div>
-            
-            <div class="form-group">
-                <label class="form-label">Payment Method</label>
-                <select class="form-input" id="paymentMethod">
-                    <option value="credit">Credit Card</option>
-                    <option value="paypal">PayPal</option>
-                    <option value="crypto">Cryptocurrency</option>
-                </select>
+            <div class="nav-item" data-page="profile">
+                <div class="nav-icon"></div>
+                <span>Profile</span>
             </div>
-            
-            <button class="btn btn-primary" style="width: 100%;" onclick="completePurchase()">
-                Complete Purchase
-            </button>
         </div>
     </div>
 
     <script>
-        // Global variables
-        let currentUser = null;
-        let cart = [];
-        let coins = 1250;
-        let activeCall = null;
-        let callInterval = null;
-        let isMuted = false;
-        let callStartTime = null;
-        let callTimerInterval = null;
-        let currentChatRoom = 'general';
-        let activeAIChat = null;
-        
-        // Sample anime data
-        const animeData = [
-            { id: 1, title: "Attack on Titan: Final Season", genre: "action", type: "sub", status: "completed", episodes: 12 },
-            { id: 2, title: "Demon Slayer: Entertainment District Arc", genre: "action", type: "sub", status: "completed", episodes: 11 },
-            { id: 3, title: "Jujutsu Kaisen Season 2", genre: "action", type: "sub", status: "ongoing", episodes: 5 },
-            { id: 4, title: "Spy x Family", genre: "comedy", type: "dub", status: "completed", episodes: 12 },
-            { id: 5, title: "Chainsaw Man", genre: "action", type: "sub", status: "completed", episodes: 12 },
-            { id: 6, title: "My Dress-Up Darling", genre: "romance", type: "sub", status: "completed", episodes: 12 },
-            { id: 7, title: "Horimiya", genre: "romance", type: "dub", status: "completed", episodes: 13 },
-            { id: 8, title: "Vinland Saga Season 2", genre: "drama", type: "sub", status: "ongoing", episodes: 8 },
-            { id: 9, title: "Bocchi the Rock!", genre: "comedy", type: "sub", status: "completed", episodes: 12 },
-            { id: 10, title: "Mob Psycho 100 III", genre: "action", type: "sub", status: "completed", episodes: 12 },
-            { id: 11, title: "Blue Lock", genre: "action", type: "sub", status: "completed", episodes: 24 },
-            { id: 12, title: "The Eminence in Shadow", genre: "fantasy", type: "sub", status: "completed", episodes: 20 }
-        ];
-        
-        // Character call data
-        const characterData = {
-            naruto: { name: "Naruto Uzumaki", cost: 100, icon: "fa-user-ninja", responses: [
-                "Believe it! That's my ninja way!",
-                "I'm gonna be Hokage someday, just you wait!",
-                "Sasuke is my friend, no matter what!"
-            ]},
-            sasuke: { name: "Sasuke Uchiha", cost: 120, icon: "fa-eye", responses: [
-                "Hmph. What do you want?",
-                "I have no time for this nonsense.",
-                "My only goal is to kill Itachi."
-            ]},
-            sakura: { name: "Sakura Haruno", cost: 90, icon: "fa-heart", responses: [
-                "Naruto, don't be so reckless!",
-                "I've trained hard to become stronger!",
-                "I'll protect my precious people!"
-            ]},
-            goku: { name: "Goku", cost: 150, icon: "fa-bolt", responses: [
-                "I'm gonna be the strongest fighter in the universe!",
-                "Let's train together!",
-                "Kamehameha!"
-            ]},
-            vegeta: { name: "Vegeta", cost: 140, icon: "fa-crown", responses: [
-                "I am the Prince of all Saiyans!",
-                "Kakarot will never surpass me!",
-                "Hmph. You're not worth my time."
-            ]},
-            luffy: { name: "Monkey D. Luffy", cost: 130, icon: "fa-hat-cowboy", responses: [
-                "I'm gonna be King of the Pirates!",
-                "Meat! I want meat!",
-                "I'll protect my nakama no matter what!"
-            ]},
-            zoro: { name: "Roronoa Zoro", cost: 110, icon: "fa-swords", responses: [
-                "I'll become the world's greatest swordsman.",
-                "I never get lost. I just take scenic routes.",
-                "Three sword style is the strongest!"
-            ]},
-            nami: { name: "Nami", cost: 95, icon: "fa-map-marked-alt", responses: [
-                "That'll be 100,000 berries for this information.",
-                "Luffy! Stop causing trouble!",
-                "I'll draw a map of the whole world!"
-            ]}
-        };
-        
-        // Poll data
-        const pollData = {
-            "aot-poll": {
-                question: "Who is your favorite Attack on Titan character?",
-                options: ["Eren", "Mikasa", "Levi", "Annie"],
-                votes: [120, 150, 180, 50]
-            },
-            "op-poll": {
-                question: "Which anime had the best opening theme in 2023?",
-                options: ["Demon Slayer", "Jujutsu Kaisen", "Chainsaw Man", "Spy x Family"],
-                votes: [200, 150, 180, 120]
-            }
-        };
-        
-        // Chat rooms data
-        const chatRooms = {
-            general: { name: "General Discussion", online: 234, messages: [
-                { sender: "OtakuMaster", text: "Just finished Attack on Titan! 🔥", time: "10:42 AM" },
-                { sender: "AnimeQueen", text: "The ending was amazing!", time: "10:43 AM" },
-                { sender: "AI Assistant", text: "Welcome to AnimeWorld chat! Type /help for commands.", time: "10:44 AM", ai: true },
-                { sender: "You", text: "Currently watching Demon Slayer", time: "10:45 AM", user: true }
-            ]},
-            releases: { name: "New Releases", online: 89, messages: [
-                { sender: "AI Assistant", text: "Welcome to New Releases chat!", time: "9:30 AM", ai: true },
-                { sender: "AnimeLover", text: "Did you see the new Jujutsu Kaisen episode?", time: "9:35 AM" },
-                { sender: "You", text: "Yes! It was incredible!", time: "9:36 AM", user: true }
-            ]},
-            manga: { name: "Manga Discussion", online: 156, messages: [
-                { sender: "AI Assistant", text: "Welcome to Manga Discussion chat!", time: "11:20 AM", ai: true },
-                { sender: "MangaFan", text: "The latest One Piece chapter was wild!", time: "11:25 AM" },
-                { sender: "You", text: "I know right? Oda never disappoints!", time: "11:26 AM", user: true }
-            ]},
-            art: { name: "Fan Art Sharing", online: 67, messages: [
-                { sender: "AI Assistant", text: "Welcome to Fan Art Sharing chat!", time: "2:15 PM", ai: true },
-                { sender: "Artist123", text: "Check out my latest Demon Slayer fan art!", time: "2:20 PM" },
-                { sender: "You", text: "That looks amazing!", time: "2:21 PM", user: true }
-            ]},
-            recommendations: { name: "Recommendations", online: 123, messages: [
-                { sender: "AI Assistant", text: "Welcome to Recommendations chat!", time: "4:45 PM", ai: true },
-                { sender: "AnimeGuru", text: "If you liked Attack on Titan, try Vinland Saga!", time: "4:50 PM" },
-                { sender: "You", text: "Thanks for the recommendation!", time: "4:51 PM", user: true }
-            ]}
-        };
-        
-        // AI chat responses
-        const aiResponses = {
-            naruto: [
-                "Believe it! That's my ninja way!",
-                "I'm gonna be Hokage someday, just you wait!",
-                "Sasuke is my friend, no matter what!",
-                "Ramennnn! I love ramen!",
-                "I won't give up, no matter how hard it gets!",
-                "My dream is to become the strongest ninja!",
-                "I will protect my friends with my life!",
-                "I have a lot to learn, but I'll never stop trying!",
-                "I may not be the smartest, but I have a big heart!",
-                "I won't let anyone down, not ever!"
-            ],
-            sasuke: [
-                "Hmph. What do you want?",
-                "I have no time for this nonsense.",
-                "My only goal is to kill Itachi.",
-                "I will become stronger, no matter the cost.",
-                "I don't care about anyone else, just my revenge.",
-                "I will not let my past define me.",
-                "I will surpass everyone who stands in my way.",
-                "I don't need friends, I have my own path to follow.",
-                "I will not lose to anyone, especially not Naruto.",
-                "I will achieve my goals, even if it means being alone."
-            ],
-            sakura: [
-                "Naruto, don't be so reckless!",
-                "I've trained hard to become stronger!",
-                "I'll protect my precious people!",
-                "I won't let anyone hurt my friends!",
-                "I may not be the strongest, but I won't give up!",
-                "I will prove that I'm more than just a medical ninja.",
-                "I will become a great kunoichi, just like Tsunade!",
-                "I will always support my friends, no matter what.",
-                "I will never let my past hold me back.",
-                "I will fight for my dreams and the people I care about!"
-            ],
-            goku: [
-                "I'm gonna be the strongest fighter in the universe!",
-                "Let's train together!",
-                "Kamehameha!",
-                "I love a good challenge!",
-                "I won't back down from any fight!",
-                "I will protect my friends and family at all costs!",
-                "I believe in the power of friendship!",
-                "I will never stop training to become stronger!",
-                "I will always strive to be the best version of myself!",
-                "I will never give up, no matter how tough it gets!"
-            ],
-            vegeta: [
-                "I am the Prince of all Saiyans!",
-                "Kakarot will never surpass me!",
-                "Hmph. You're not worth my time.",
-                "I will achieve my ultimate form!",
-                "I will destroy anyone who stands in my way!",
-                "I will not let anyone disrespect the Saiyan name!",
-                "I will prove that I am the strongest warrior in the universe!",
-                "I will not let my pride be tarnished!",
-                "I will train harder than anyone else!",
-                "I will not rest until I am the best!"
-            ],
-            luffy: [
-                "I'm gonna be King of the Pirates!",
-                "Meat! I want meat!",
-                "I'll protect my nakama no matter what!",
-                "I will never back down from a fight!",
-                "I will find the One Piece and become the Pirate King!",
-                "I believe in my friends and their dreams!",
-                "I will never give up, no matter how tough it gets!",
-                "I will sail the seas and explore the world!",
-                "I will always follow my own path!",
-                "I will never let anyone take away my freedom!"
-            ],
-            zoro: [
-                "I'll become the world's greatest swordsman.",
-                "I never get lost. I just take scenic routes.",
-                "Three sword style is the strongest!",
-                "I will cut down anyone who stands in my way!",
-                "I will not let my injuries hold me back!",
-                "I will train harder than anyone else!",
-                "I will protect my captain and crew at all costs!",
-                "I will never give up on my dream!",
-                "I will not rest until I achieve my goal!",
-                "I will prove that I am the best swordsman in the world!"
-            ],
-            nami: [
-                "That'll be 100,000 berries for this information.",
-                "Luffy! Stop causing trouble!",
-                "I'll draw a map of the whole world!",
-                "I will protect my crew and our ship!",
-                "I will never let anyone steal from us!",
-                "I will always find a way to get what I want!",
-                "I will not let anyone underestimate me!",
-                "I will use my intelligence to outsmart my enemies!",
-                "I will always follow my own path!",
-                "I will never give up on my dreams!"
-            ]
-        };
-  
-
-
-
-        
-        // Initialize the page
-        document.addEventListener('DOMContentLoaded', function() {
-            // Set up event listeners
-            document.getElementById('menuToggle').addEventListener('click', toggleMenu);
-            document.getElementById('themeToggle').addEventListener('click', toggleTheme);
-            
-            // Set up navigation
-            const navItems = document.querySelectorAll('.nav-item');
-            navItems.forEach(item => {
-                item.addEventListener('click', function() {
-                    const section = this.getAttribute('data-section');
-                    showSection(section);
-                    if (window.innerWidth <= 992) {
-                        toggleMenu();
-                    }
-                });
+        // Page Navigation
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
             });
             
-            // Populate anime grid
-            populateAnimeGrid();
+            // Show selected page
+            document.getElementById(pageId).classList.add('active');
             
-            // Set up search and filter functionality
-            document.getElementById('animeSearch').addEventListener('input', populateAnimeGrid);
-            document.getElementById('genreFilter').addEventListener('change', populateAnimeGrid);
-            document.getElementById('typeFilter').addEventListener('change', populateAnimeGrid);
-            document.getElementById('statusFilter').addEventListener('change', populateAnimeGrid);
+            // Update navigation
+            document.querySelectorAll('.nav-item').forEach(nav => {
+                nav.classList.remove('active');
+            });
             
-            // Check if user is logged in (for demo purposes)
-            checkLoginStatus();
+            const activeNav = document.querySelector(`[data-page="${pageId}"]`);
+            if (activeNav) {
+                activeNav.classList.add('active');
+            }
             
-            // Update coin display
-            updateCoinDisplay();
+            // Update quick access buttons
+            document.querySelectorAll('.quick-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            const activeQuickBtn = document.querySelector(`[data-nav="${pageId}"]`);
+            if (activeQuickBtn) {
+                activeQuickBtn.classList.add('active');
+            }
+        }
+
+        // Bottom Navigation Event Listeners
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', () => {
+                const pageId = item.getAttribute('data-page');
+                showPage(pageId);
+            });
         });
-        
-        // Toggle mobile menu
-        function toggleMenu() {
-            const navMenu = document.getElementById('navMenu');
-            navMenu.classList.toggle('active');
-        }
-        
-        // Toggle dark/light theme
-        function toggleTheme() {
-            const body = document.body;
-            const themeToggle = document.getElementById('themeToggle');
-            
-            if (body.classList.contains('light-theme')) {
-                body.classList.remove('light-theme');
-                themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
-                showNotification('Dark mode enabled');
-            } else {
-                body.classList.add('light-theme');
-                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
-                showNotification('Light mode enabled');
-            }
-        }
-        
-        // Show a specific section
-        function showSection(sectionId) {
-            // Hide all sections
-            const sections = document.querySelectorAll('.section');
-            sections.forEach(section => {
-                section.classList.remove('active');
-            });
-            
-            // Show the selected section
-            document.getElementById(sectionId).classList.add('active');
-            
-            // Update active nav item
-            const navItems = document.querySelectorAll('.nav-item');
-            navItems.forEach(item => {
-                if (item.getAttribute('data-section') === sectionId) {
-                    item.classList.add('active');
-                } else {
-                    item.classList.remove('active');
+
+        // Quick Access Buttons
+        document.querySelectorAll('.quick-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const pageId = btn.getAttribute('data-nav');
+                if (pageId) {
+                    showPage(pageId);
                 }
             });
+        });
+
+        // Character Selection
+        function selectCharacter(element) {
+            document.querySelectorAll('.character-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            element.classList.add('selected');
+        }
+
+        // Checkbox Toggle
+        function toggleCheckbox(element) {
+            element.classList.toggle('checked');
+        }
+
+        // Message Tabs
+        document.querySelectorAll('.message-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.message-tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+            });
+        });
+
+        // Shop Tabs
+        document.querySelectorAll('.shop-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.shop-tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+            });
+        });
+
+        // Coin Package Selection
+        document.querySelectorAll('.coin-package').forEach(pkg => {
+            pkg.addEventListener('click', () => {
+                document.querySelectorAll('.coin-package').forEach(p => p.classList.remove('selected'));
+                pkg.classList.add('selected');
+            });
+        });
+
+        // Search Functionality
+        document.querySelectorAll('.search-bar').forEach(searchBar => {
+            searchBar.addEventListener('input', (e) => {
+                const query = e.target.value.toLowerCase();
+                // Here you would implement actual search functionality
+                console.log('Searching for:', query);
+            });
+        });
+
+        // Anime Card Click Events
+        document.querySelectorAll('.anime-card, .new-arrival-card, .shop-item').forEach(card => {
+            card.addEventListener('click', () => {
+                // Add click animation
+                card.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    card.style.transform = '';
+                }, 150);
+                
+                // Here you would implement navigation to detail pages
+                console.log('Card clicked:', card.querySelector('.anime-card-title, .new-arrival-title, .shop-item-title')?.textContent);
+            });
+        });
+
+        // Purchase Button
+        document.querySelector('.purchase-btn')?.addEventListener('click', () => {
+            const selectedPackage = document.querySelector('.coin-package.selected');
+            if (selectedPackage) {
+                alert('Purchase successful! Coins added to your account.');
+            } else {
+                alert('Please select a coin package first.');
+            }
+        });
+
+        // Start Call Button
+        document.querySelector('.start-call-btn')?.addEventListener('click', () => {
+            const selectedCharacter = document.querySelector('.character-option.selected');
+            if (selectedCharacter) {
+                alert(`Starting call with ${selectedCharacter.querySelector('.character-name').textContent}...`);
+            } else {
+                alert('Please select a character first.');
+            }
+        });
+
+        // Message Item Click Events
+        document.querySelectorAll('.message-item').forEach(item => {
+            item.addEventListener('click', () => {
+                const groupName = item.querySelector('h4').textContent;
+                alert(`Opening chat with ${groupName}`);
+            });
+        });
+
+        // Add loading states and animations
+        function addLoadingAnimation() {
+            const cards = document.querySelectorAll('.anime-card, .new-arrival-card, .shop-item');
+            cards.forEach((card, index) => {
+                card.style.animationDelay = `${index * 0.1}s`;
+            });
+        }
+
+        // Initialize app
+        document.addEventListener('DOMContentLoaded', () => {
+            addLoadingAnimation();
             
-            // Scroll to top
-            window.scrollTo(0, 0);
+            // Set current date for date input
+            const dateInput = document.querySelector('input[type="date"]');
+            if (dateInput) {
+                const today = new Date().toISOString().split('T')[0];
+                dateInput.value = today;
+            }
+            
+            // Set default time for time input
+            const timeInput = document.querySelector('input[type="time"]');
+            if (timeInput) {
+                const now = new Date();
+                const hours = String(now.getHours()).padStart(2, '0');
+                const minutes = String(now.getMinutes()).padStart(2, '0');
+                timeInput.value = `${hours}:${minutes}`;
+            }
+        });
+
+        // Add some interactive features
+        let touchStartY = 0;
+        let touchEndY = 0;
+
+        // Pull to refresh functionality
+        document.addEventListener('touchstart', e => {
+            touchStartY = e.changedTouches[0].screenY;
+        });
+
+        document.addEventListener('touchend', e => {
+            touchEndY = e.changedTouches[0].screenY;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            const swipeDistance = touchEndY - touchStartY;
+            const minSwipeDistance = 100;
+            
+            if (swipeDistance > minSwipeDistance && window.scrollY === 0) {
+                // Pull to refresh
+                refreshContent();
+            }
         }
-        
-        // Show a modal
-        function showModal(modalId) {
-            document.getElementById(modalId).classList.add('active');
-        }
-        
-        // Hide a modal
-        function hideModal(modalId) {
-            document.getElementById(modalId).classList.remove('active');
-        }
-        
-        // Show notification
-        function showNotification(message, type = 'info', duration = 3000) {
-            const notification = document.getElementById('notification');
-            notification.textContent = message;
-            notification.className = 'notification';
-            notification.classList.add(type, 'show');
+
+        function refreshContent() {
+            // Add refresh animation
+            document.body.style.transform = 'translateY(20px)';
+            document.body.style.transition = 'transform 0.3s ease';
             
             setTimeout(() => {
-                notification.classList.remove('show');
-            }, duration);
+                document.body.style.transform = '';
+                document.body.style.transition = '';
+                
+                // Simulate content refresh
+                console.log('Content refreshed!');
+            }, 300);
         }
-        
-        // Populate anime grid with filtered results
-        function populateAnimeGrid() {
-            const searchTerm = document.getElementById('animeSearch').value.toLowerCase();
-            const genreFilter = document.getElementById('genreFilter').value;
-            const typeFilter = document.getElementById('typeFilter').value;
-            const statusFilter = document.getElementById('statusFilter').value;
-            
-            const filteredAnime = animeData.filter(anime => {
-                return anime.title.toLowerCase().includes(searchTerm) &&
-                       (genreFilter === '' || anime.genre === genreFilter) &&
-                       (typeFilter === '' || anime.type === typeFilter) &&
-                       (statusFilter === '' || anime.status === statusFilter);
-            });
-            
-            const animeGrid = document.getElementById('animeGrid');
-            animeGrid.innerHTML = '';
-            
-            if (filteredAnime.length === 0) {
-                animeGrid.innerHTML = '<div class="card" style="grid-column: 1/-1; text-align: center;">No anime found matching your criteria</div>';
-                return;
-            }
-            
-            filteredAnime.forEach(anime => {
-                const animeCard = document.createElement('div');
-                animeCard.className = 'anime-card';
-                animeCard.innerHTML = `
-                    <div class="anime-poster">
-                        <i class="fas fa-play"></i>
-                    </div>
-                    <div class="anime-info">
-                        <div class="anime-title">${anime.title}</div>
-                        <div class="anime-meta">
-                            <span>${anime.episodes} eps</span>
-                            <span>${anime.type === 'sub' ? 'Sub' : 'Dub'}</span>
-                        </div>
-                    </div>
-                `;
-                animeCard.addEventListener('click', () => {
-                    showNotification(`Now playing: ${anime.title}`, 'success');
-                });
-                animeGrid.appendChild(animeCard);
-            });
-        }
-        
-        // Check login status (demo)
-        function checkLoginStatus() {
-            // For demo purposes, we'll assume the user is logged out initially
-            document.getElementById('loginButton').style.display = 'inline-block';
-            document.getElementById('logoutButton').style.display = 'none';
-        }
-        
-        // Login function (demo)
-        function login() {
-            const username = document.getElementById('loginUsername').value;
-            const password = document.getElementById('loginPassword').value;
-            if (username && password) {
-                currentUser = { username: username };
-                document.getElementById('loginButton').style.display = 'none';
-                document.getElementById('logoutButton').style.display = 'inline-block';
-                hideModal('loginModal');
-                showNotification(`Welcome back, ${username}!`, 'success');
-            } else {
-                showNotification('Please enter both username and password', 'error');
-            }
-        }
-        // Register function (demo)
-        function register() {
-            const username = document.getElementById('registerUsername').value;
-            const email = document.getElementById('registerEmail').value;
-            const password = document.getElementById('registerPassword').value;
-            const confirmPassword = document.getElementById('registerConfirmPassword').value;
-            
-            if (username && email && password && confirmPassword) {
-                if (password === confirmPassword) {
-                    currentUser = { username: username, email: email };
-                    document.getElementById('loginButton').style.display = 'none';
-                    document.getElementById('logoutButton').style.display = 'inline-block';
-                    hideModal('registerModal');
-                    showNotification(`Account created successfully, ${username}!`, 'success');
-                } else {
-                    showNotification('Passwords do not match', 'error');
+
+        // Keyboard shortcuts for desktop testing
+        document.addEventListener('keydown', (e) => {
+            if (e.key >= '1' && e.key <= '5') {
+                const pages = ['home', 'stream', 'shop', 'messages', 'profile'];
+                const pageIndex = parseInt(e.key) - 1;
+                if (pages[pageIndex]) {
+                    showPage(pages[pageIndex]);
                 }
-            } else {
-                showNotification('Please fill in all fields', 'error');
             }
-        }
-        // Add to cart function
-        function addToCart(productName, productPrice) {
-            const cartItem = { name: productName, price: productPrice };
-            cart.push(cartItem);
-            updateCartDisplay();
-            showNotification(`${productName} added to cart`, 'success');
-        }
-        // Update cart display
-        function updateCartDisplay() {
-            const cartItemsContainer = document.getElementById('cartItems');
-            cartItemsContainer.innerHTML = '';
-            let total = 0;
-            
-            cart.forEach(item => {
-                const itemElement = document.createElement('div');
-                itemElement.className = 'cart-item';
-                itemElement.innerHTML = `
-                    <span>${item.name}</span>
-                    <span>$${item.price.toFixed(2)}</span>
-                `;
-                cartItemsContainer.appendChild(itemElement);
-                total += item.price;
-            });
-            
-            document.getElementById('cartTotal').textContent = `Total: $${total.toFixed(2)}`;
-        }   
-        // Show product modal
-        function showProductModal(productName) {
-            const product = {
-                'Naruto Figurine': { price: 49.99, description: 'A detailed figurine of Naruto Uzumaki.' },
-                'Dragon Ball Z Hoodie': { price: 39.99, description: 'A stylish hoodie featuring Dragon Ball Z characters.' },
-                'Demon Slayer Poster Set': { price: 24.99, description: 'A set of posters from the Demon Slayer series.' },
-                'One Piece Straw Hat': { price: 59.99, description: 'A replica of Luffy\'s iconic straw hat.' },
-                'Jujutsu Kaisen Keychain Set': { price: 14.99, description: 'A set of keychains featuring Jujutsu Kaisen characters.' },
-                'My Hero Academia T-Shirt': { price: 19.99, description: 'A t-shirt with My Hero Academia designs.' }
-            };
-            
-            if (product[productName]) {
-                document.getElementById('productModalTitle').textContent = productName;
-                document.getElementById('productModalDescription').textContent = product[productName].description;
-                document.getElementById('productModalPrice').textContent = `$${product[productName].price.toFixed(2)}`;
-                
-                showModal('productModal');
-            } else {
-                showNotification('Product not found', 'error');
-            }
-        }
-        // Add to cart from product modal
-        function addToCartFromModal() {
-            const productName = document.getElementById('productModalTitle').textContent;
-            const productPrice = parseFloat(document.getElementById('productModalPrice').textContent.replace('$', ''));
-            
-            addToCart(productName, productPrice);
-            hideModal('productModal');
-        }
-        // Select coin pack
-        function selectCoinPack(pack) {
-            const packs = {
-                starter: { amount: 500, price: 4.99 },
-                regular: { amount: 1200, price: 9.99 },
-                premium: { amount: 3000, price: 19.99 }
-            };
-            
-            if (packs[pack]) {
-                document.getElementById('coinModal').querySelector('.coin-pack.active')?.classList.remove('active');
-                document.querySelector(`.coin-pack h3:contains('${packs[pack].amount}')`).parentElement.classList.add('active');
-                
-                showNotification(`Selected ${packs[pack].amount} coins for $${packs[pack].price}`, 'info');
-            } else {
-                showNotification('Invalid coin pack selected', 'error');
-            }
-        }
-        // Purchase coins
-        function purchaseCoins() {
-            const selectedPack = document.querySelector('.coin-pack.active');
-            if (selectedPack) {
-                const packAmount = parseInt(selectedPack.querySelector('.coin-amount').textContent.replace(/\D/g, ''));
-                const packPrice = parseFloat(selectedPack.querySelector('.coin-price').textContent.replace('$', ''));
-                
-                if (coins >= packPrice) {
-                    coins += packAmount;
-                    updateCoinDisplay();
-                    hideModal('coinModal');
-                    showNotification(`Purchased ${packAmount} coins for $${packPrice}`, 'success');
-                } else {
-                    showNotification('Not enough coins to purchase this pack', 'error');
-                }
-            } else {
-                showNotification('Please select a coin pack to purchase', 'error');
-            }
-        }
-        // Update coin display
-        function updateCoinDisplay() {
-            const coinDisplay = document.getElementById('coinDisplay');
-            coinDisplay.textContent = `Coins: ${coins}`;
-        }
-        // Add to cart from character call
-        function addToCartFromCall(character) {
-            const characterInfo = characterData[character];
-            if (characterInfo) {
-                const cartItem = { name: characterInfo.name, price: characterInfo.cost };
-                cart.push(cartItem);
-                updateCartDisplay();
-                showNotification(`${characterInfo.name} added to cart for ${characterInfo.cost} coins`, 'success');
-            } else {
-                showNotification('Character not found', 'error');
-            }
-        }
-        // Start character call
-        function startCharacterCall(character) {
-            if (activeCall) {
-                showNotification('You are already in a call', 'error');
-                return;
-            }
-            
-            const characterInfo = characterData[character];
-            if (!characterInfo) {
-                showNotification('Character not found', 'error');
-                return;
-            }
-            
-            if (coins < characterInfo.cost) {
-                showNotification(`Not enough coins to call ${characterInfo.name}`, 'error');
-                return;
-            }
-            
-            coins -= characterInfo.cost;
-            updateCoinDisplay();
-            
-            activeCall = character;
-            callInterval = setInterval(() => {
-                showNotification(`${characterInfo.name} is calling...`, 'info');
-            }, 5000);
-            
-            showNotification(`Calling ${characterInfo.name}...`, 'success');
-        }
-        // End character call
-        function endCharacterCall() {
-            if (!activeCall) {
-                showNotification('No active call to end', 'error');
-                return;
-            }
-            
-            clearInterval(callInterval);
-            const characterInfo = characterData[activeCall];
-            showNotification(`${characterInfo.name} call ended`, 'success');
-            activeCall = null;
-        }
-        // Mute character call
-        function toggleMute() {
-            isMuted = !isMuted;
-            const muteButton = document.getElementById('muteButton');
-            muteButton.innerHTML = isMuted ? '<i class="fas fa-volume-mute"></i>' : '<i class="fas fa-volume-up"></i>';
-            showNotification(isMuted ? 'Call muted' : 'Call unmuted', 'info');
-        }
-        // Complete purchase
-        function completePurchase() {
-            const checkoutItems = document.getElementById('checkoutItems');
-            checkoutItems.innerHTML = '';
-            let total = 0;
-            
-            cart.forEach(item => {
-                const itemElement = document.createElement('div');
-                itemElement.className = 'cart-item';
-                itemElement.innerHTML = `
-                    <span>${item.name}</span>
-                    <span>$${item.price.toFixed(2)}</span>
-                `;
-                checkoutItems.appendChild(itemElement);
-                total += item.price;
-            });
-            
-            document.getElementById('checkoutTotal').textContent = `$${total.toFixed(2)}`;
-            
-            hideModal('checkoutModal');
-            showNotification('Purchase completed successfully!', 'success');
-            
-            // Clear cart after purchase
-            cart = [];
-            updateCartDisplay();
-        }
-    </script>           
+        });
+    </script>
 </body>
 </html>

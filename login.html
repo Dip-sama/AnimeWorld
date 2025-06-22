@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AnimeWorld - Authentication</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .auth-container {
+            display: flex;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            max-width: 900px;
+            width: 100%;
+            min-height: 600px;
+        }
+
+        .login-section, .register-section {
+            flex: 1;
+            padding: 40px;
+            background: #2a2a2a;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .register-section {
+            background: #1a1a1a;
+        }
+
+        .anime-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .anime-character {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #87CEEB, #98FB98);
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .character-face {
+            width: 80px;
+            height: 80px;
+            background: #FFE4B5;
+            border-radius: 50%;
+            position: relative;
+        }
+
+        .character-hair {
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90px;
+            height: 60px;
+            background: #FFA500;
+            border-radius: 50px 50px 20px 20px;
+        }
+
+        .character-eyes {
+            position: absolute;
+            top: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+        }
+
+        .eye {
+            width: 8px;
+            height: 12px;
+            background: #333;
+            border-radius: 50%;
+        }
+
+        .character-mouth {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 12px;
+            height: 6px;
+            border: 2px solid #333;
+            border-top: none;
+            border-radius: 0 0 12px 12px;
+        }
+
+        h2 {
+            font-size: 28px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .register-section h2 {
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        input[type="text"], input[type="email"], input[type="password"] {
+            width: 100%;
+            padding: 15px;
+            background: #404040;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus {
+            outline: none;
+            background: #505050;
+            box-shadow: 0 0 10px rgba(103, 126, 234, 0.3);
+        }
+
+        input::placeholder {
+            color: #888;
+        }
+
+        .forgot-password {
+            text-align: center;
+            margin: 15px 0;
+        }
+
+        .forgot-password a {
+            color: #888;
+            text-decoration: underline;
+            font-size: 14px;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 15px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(103, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: #555;
+            color: white;
+            margin-right: 10px;
+            flex: 1;
+        }
+
+        .btn-secondary:hover {
+            background: #666;
+        }
+
+        .social-login {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .social-login p {
+            color: #888;
+            margin-bottom: 15px;
+        }
+
+        .social-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .switch-form {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .switch-form a {
+            color: #888;
+            text-decoration: underline;
+            font-size: 14px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            margin-right: 10px;
+            width: auto;
+        }
+
+        .back-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .register-section {
+            position: relative;
+        }
+
+        @media (max-width: 768px) {
+            .auth-container {
+                flex-direction: column;
+                max-width: 400px;
+            }
+            
+            .login-section, .register-section {
+                padding: 30px 20px;
+            }
+        }
+
+        .mobile-view {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .desktop-view {
+                display: none;
+            }
+            
+            .mobile-view {
+                display: block;
+            }
+            
+            .auth-container {
+                background: #2a2a2a;
+            }
+            
+            .register-mobile {
+                background: #1a1a1a;
+                min-height: 100vh;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                padding: 40px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Desktop View -->
+    <div class="auth-container desktop-view">
+        <!-- Login Section -->
+        <div class="login-section">
+            <div class="anime-header">
+                <div class="anime-character">
+                    <div class="character-face">
+                        <div class="character-hair"></div>
+                        <div class="character-eyes">
+                            <div class="eye"></div>
+                            <div class="eye"></div>
+                        </div>
+                        <div class="character-mouth"></div>
+                    </div>
+                </div>
+                <h2>Welcome to AnimeWorld</h2>
+            </div>
+
+            <form id="loginForm">
+                <div class="form-group">
+                    <input type="text" placeholder="Username or Email" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" placeholder="Password" required>
+                </div>
+                <div class="forgot-password">
+                    <a href="#">Forgot Password?</a>
+                </div>
+                <button type="submit" class="btn btn-primary">Login</button>
+            </form>
+
+            <div class="social-login">
+                <p>Or login with</p>
+                <div class="social-buttons">
+                    <button class="btn btn-secondary">Google</button>
+                    <button class="btn btn-secondary">Facebook</button>
+                </div>
+            </div>
+
+            <div class="switch-form">
+                <a href="#" onclick="switchToRegister()">Don't have an account? Sign Up</a>
+            </div>
+        </div>
+
+        <!-- Register Section -->
+        <div class="register-section">
+            <h2>Create your account</h2>
+            
+            <form id="registerForm">
+                <div class="form-group">
+                    <input type="text" placeholder="Username" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" placeholder="Email" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" placeholder="Password" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" placeholder="Confirm Password" required>
+                </div>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="terms" required>
+                    <label for="terms">I agree to the Terms of Service and Privacy Policy</label>
+                </div>
+                <button type="submit" class="btn btn-primary">Register</button>
+            </form>
+
+            <div class="switch-form">
+                <a href="#" onclick="switchToLogin()">Already have an account? Sign in</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile View -->
+    <div class="mobile-view">
+        <!-- Login Mobile -->
+        <div class="auth-container" id="loginMobile">
+            <div class="login-section">
+                <div class="anime-header">
+                    <div class="anime-character">
+                        <div class="character-face">
+                            <div class="character-hair"></div>
+                            <div class="character-eyes">
+                                <div class="eye"></div>
+                                <div class="eye"></div>
+                            </div>
+                            <div class="character-mouth"></div>
+                        </div>
+                    </div>
+                    <h2>Welcome to AnimeWorld</h2>
+                </div>
+
+                <form>
+                    <div class="form-group">
+                        <input type="text" placeholder="Username or Email" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" placeholder="Password" required>
+                    </div>
+                    <div class="forgot-password">
+                        <a href="#">Forgot Password?</a>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </form>
+
+                <div class="social-login">
+                    <p>Or login with</p>
+                    <div class="social-buttons">
+                        <button class="btn btn-secondary">Google</button>
+                        <button class="btn btn-secondary">Facebook</button>
+                    </div>
+                </div>
+
+                <div class="switch-form">
+                    <a href="#" onclick="showRegisterMobile()">Don't have an account? Sign Up</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Register Mobile -->
+        <div class="register-mobile" id="registerMobile" style="display: none;">
+            <button class="back-btn" onclick="showLoginMobile()">←</button>
+            <div style="text-align: center; margin-bottom: 30px;">
+                <h2 style="color: white;">AnimeWorld</h2>
+            </div>
+            
+            <h2 style="color: white; text-align: center;">Create your account</h2>
+            
+            <form>
+                <div class="form-group">
+                    <input type="text" placeholder="Username" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" placeholder="Email" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" placeholder="Password" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" placeholder="Confirm Password" required>
+                </div>
+                <div class="checkbox-group" style="color: white;">
+                    <input type="checkbox" id="termsMobile" required>
+                    <label for="termsMobile">I agree to the Terms of Service and Privacy Policy</label>
+                </div>
+                <button type="submit" class="btn btn-primary">Register</button>
+            </form>
+
+            <div class="switch-form">
+                <a href="#" onclick="showLoginMobile()" style="color: #888;">Already have an account? Sign in</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function switchToRegister() {
+            // This would typically navigate to a register page
+            // For demo purposes, we'll just show an alert
+            alert('Switching to register form...');
+        }
+
+        function switchToLogin() {
+            // This would typically navigate back to login
+            alert('Switching to login form...');
+        }
+
+        function showRegisterMobile() {
+            document.getElementById('loginMobile').style.display = 'none';
+            document.getElementById('registerMobile').style.display = 'block';
+        }
+
+        function showLoginMobile() {
+            document.getElementById('loginMobile').style.display = 'block';
+            document.getElementById('registerMobile').style.display = 'none';
+        }
+
+        // Handle form submissions
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Login form submitted!');
+        });
+
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Register form submitted!');
+        });
+    </script>
+</body>
+</html>
